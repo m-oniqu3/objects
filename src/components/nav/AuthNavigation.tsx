@@ -13,7 +13,7 @@ function AuthNavigation() {
   });
 
   return (
-    <nav className="grid place-items-center h-14">
+    <nav className="grid place-items-center h-16 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-between">
         <div className="flex items-center gap-8">
           <p className="font-bold">objects</p>

@@ -8,6 +8,7 @@ import SignIn from "./pages/auth/SignIn.tsx";
 import SignUp from "./pages/auth/SignUp.tsx";
 import Home from "./pages/Home.tsx";
 import New from "./pages/New.tsx";
+import Stories from "./pages/Stories.tsx";
 
 const root = document.getElementById("root")!;
 
@@ -18,6 +19,7 @@ createRoot(root).render(
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/stories" element={<Stories />} />
             <Route path="/new" element={<New />} />
           </Route>
 
