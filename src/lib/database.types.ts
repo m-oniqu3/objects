@@ -14,10 +14,181 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      genres: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: number
+          name: string
+        }
+        Update: {
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          fullname: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          fullname: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          fullname?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      prompts: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string | null
+          id: number
+          is_archived: boolean
+          title: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: number
+          is_archived?: boolean
+          title: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: number
+          is_archived?: boolean
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prompts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stories: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: number
+          is_published: boolean
+          prompt_id: number | null
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          content?: string
+          created_at?: string
+          id?: number
+          is_published?: boolean
+          prompt_id?: number | null
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: number
+          is_published?: boolean
+          prompt_id?: number | null
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stories_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stories_prompt_id_fkey"
+            columns: ["prompt_id"]
+            isOneToOne: false
+            referencedRelation: "prompts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stories_genres: {
+        Row: {
+          genre_id: number
+          story_id: number
+        }
+        Insert: {
+          genre_id: number
+          story_id: number
+        }
+        Update: {
+          genre_id?: number
+          story_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stories_genres_genre_id_fkey"
+            columns: ["genre_id"]
+            isOneToOne: false
+            referencedRelation: "genres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stories_genres_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      feed_view: {
+        Row: {
+          author_name: string | null
+          created_at: string | null
+          id: number | null
+          response_count: number | null
+          snippet: string | null
+          title: string | null
+          type: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
