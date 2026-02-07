@@ -1,17 +1,16 @@
-import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
   isLoading: boolean;
+  hasMore: boolean;
   fetcher: () => void;
 };
 
 function InfiniteScroll(props: Props) {
-  const { children, fetcher, isLoading } = props;
+  const { children, fetcher, isLoading, hasMore } = props;
 
   const targetRef = useRef<HTMLDivElement | null>(null);
-
-  const fetchFn = useCallback(() => fetcher, [fetcher]);
 
   useEffect(() => {
     const options = {
@@ -22,8 +21,9 @@ function InfiniteScroll(props: Props) {
 
     function callback(entries: IntersectionObserverEntry[]) {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          fetchFn();
+        if (entry.isIntersecting && !isLoading && hasMore) {
+          console.log("intersecting - fetching more");
+          fetcher();
         }
       });
     }
@@ -35,14 +35,16 @@ function InfiniteScroll(props: Props) {
     return () => {
       observer.disconnect();
     };
-  }, [fetchFn]);
+  }, [fetcher, isLoading, hasMore]);
 
   return (
     <div>
       {children}
 
-      {isLoading && <p>loading.. </p>}
-      <div ref={targetRef} />
+      <div ref={targetRef} className="h-20 grid place-items-center">
+        {isLoading && <p>loading.. </p>}
+        {!hasMore && !isLoading && <p>No more stories</p>}
+      </div>
     </div>
   );
 }
