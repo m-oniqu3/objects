@@ -9,7 +9,7 @@ import RootLayout from "./layout/RootLayout.tsx";
 import SignIn from "./pages/auth/SignIn.tsx";
 import SignUp from "./pages/auth/SignUp.tsx";
 import Home from "./pages/Home.tsx";
-import New from "./pages/New.tsx";
+import NewStory from "./pages/NewStory.tsx";
 import Stories from "./pages/Stories.tsx";
 
 const root = document.getElementById("root")!;
@@ -26,7 +26,7 @@ createRoot(root).render(
               <Route path="/stories" element={<Stories />} />
             </Route>
 
-            <Route path="/new" element={<New />} />
+            <Route path="/new-story" element={<NewStory />} />
 
             <Route path="/sign_in" element={<SignIn />} />
             <Route path="/sign_up" element={<SignUp />} />
