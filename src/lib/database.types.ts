@@ -60,7 +60,7 @@ export type Database = {
         Row: {
           archived_at: string | null
           created_at: string
-          created_by: string | null
+          created_by: string
           id: number
           is_archived: boolean
           title: string
@@ -68,15 +68,15 @@ export type Database = {
         Insert: {
           archived_at?: string | null
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           id?: number
           is_archived?: boolean
-          title: string
+          title?: string
         }
         Update: {
           archived_at?: string | null
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           id?: number
           is_archived?: boolean
           title?: string

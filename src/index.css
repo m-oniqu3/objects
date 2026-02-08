@@ -10,17 +10,19 @@
 }
 
 @layer components {
-
-
     .wrapper {
         @apply w-[90%] mx-auto
     }
 
     .panel {
-        @apply bg-white h-full max-h-125 p-8 w-full overflow-scroll no-scrollbar
+        @apply bg-white h-full max-h-125 p-4 w-full max-w-sm mx-auto overflow-scroll no-scrollbar
     }
 
     .input-error {
         @apply text-red-500 text-xs
     }
+}
+
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }

@@ -22,8 +22,8 @@ export default function Portal({ children, selector, close }: Props) {
       }
     };
 
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
   }, [portalElement, close]);
 
   if (!portalElement) return null;

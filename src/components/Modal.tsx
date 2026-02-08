@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 import { useModal } from "../contexts/modal/useModal";
 import { ModalTypes } from "../types/modal";
 import Portal from "./Portal";
+import CreatePrompt from "./prompt/CreatePrompt";
 
 function Modal() {
   const {
@@ -16,7 +17,7 @@ function Modal() {
 
   switch (currentModal) {
     case ModalTypes.CREATE_PROMPT_MODAL:
-      ModalContent = <p>hey</p>;
+      ModalContent = <CreatePrompt />;
       break;
 
     default:
@@ -24,12 +25,14 @@ function Modal() {
   }
 
   return (
-    <Portal selector="body" close={closeModal}>
+    <Portal selector="#body" close={closeModal}>
       <div
-        className="fixed p-4 w-full inset-0 z-50 flex items-center justify-center bg-black/50"
+        className="fixed p-4 w-full inset-0 z-40 flex items-center justify-center bg-black/50"
         onClick={closeModal}
       >
-        <div onClick={stopPropagation}>{ModalContent}</div>
+        <div onClick={stopPropagation} className="wrapper z-50">
+          {ModalContent}
+        </div>
       </div>
     </Portal>
   );
