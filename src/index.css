@@ -10,11 +10,17 @@
 }
 
 @layer components {
-    .input-error {
-        @apply text-red-500 text-xs
-    }
+
 
     .wrapper {
         @apply w-[90%] mx-auto
+    }
+
+    .panel {
+        @apply bg-white h-full max-h-125 p-8 w-full overflow-scroll no-scrollbar
+    }
+
+    .input-error {
+        @apply text-red-500 text-xs
     }
 }

@@ -1,9 +1,13 @@
 import { Link } from "react-router";
 import { MenuIcon } from "../../assets/icons";
+import { useModal } from "../../contexts/modal/useModal";
+import { ModalTypes } from "../../types/modal";
+import Button from "../Button";
 
 function AuthNavigation() {
-  const links = ["stories", "prompts", "threads"];
+  const { openModal } = useModal();
 
+  const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
       <li key={link}>
@@ -12,6 +16,9 @@ function AuthNavigation() {
     );
   });
 
+  function handleModal() {
+    openModal(ModalTypes.CREATE_PROMPT_MODAL);
+  }
   return (
     <nav className="grid place-items-center h-16 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-between">
@@ -29,6 +36,9 @@ function AuthNavigation() {
           </button>
 
           <div className="hidden md:flex items-center gap-4">
+            <Button onClick={handleModal} className="bg-black text-white">
+              Create
+            </Button>
             <Link to={"/new"}>Write</Link>
             <div className="bg-gray-200 rounded-full size-9" />
           </div>

@@ -1,7 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { AuthContextProvider } from "./contexts/AuthContextProvider.tsx";
+import Modal from "./components/Modal.tsx";
+import { AuthContextProvider } from "./contexts/auth/AuthContextProvider.tsx";
+import ModalProvider from "./contexts/modal/provider.tsx";
 import "./index.css";
 import RootLayout from "./layout/RootLayout.tsx";
 import SignIn from "./pages/auth/SignIn.tsx";
@@ -16,16 +18,20 @@ createRoot(root).render(
   <StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <Routes>
-          <Route element={<RootLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/stories" element={<Stories />} />
-            <Route path="/new" element={<New />} />
-          </Route>
+        <ModalProvider>
+          <Modal />
+          <Routes>
+            <Route element={<RootLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/stories" element={<Stories />} />
+            </Route>
 
-          <Route path="/sign_in" element={<SignIn />} />
-          <Route path="/sign_up" element={<SignUp />} />
-        </Routes>
+            <Route path="/new" element={<New />} />
+
+            <Route path="/sign_in" element={<SignIn />} />
+            <Route path="/sign_up" element={<SignUp />} />
+          </Routes>
+        </ModalProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </StrictMode>,
