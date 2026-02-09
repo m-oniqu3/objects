@@ -16,7 +16,8 @@
     }
 
     html {
-        /* font-family: "Radley", serif; */
+        font-family: "Inter", sans-serif;
+        /* font-family: "Noto Serif", serif; */
         font-weight: 400;
         font-style: normal;
     }

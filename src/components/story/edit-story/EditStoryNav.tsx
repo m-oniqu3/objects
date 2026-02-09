@@ -1,8 +1,4 @@
-import {
-  AddIcon,
-  ChevronLeftIcon,
-  HorizontalEllipsisIcon,
-} from "../../../assets/icons";
+import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
 import { useModal } from "../../../contexts/modal/useModal";
 import { ModalTypes } from "../../../types/modal";
 import Button from "../../Button";
@@ -34,12 +30,15 @@ function EditStoryNav() {
             <HorizontalEllipsisIcon className="size-5" />
           </Button>
 
-          <Button onClick={handlePromptModal} className="hidden md:flex gap-1">
-            <AddIcon className="size-4 " />
+          <Button
+            onClick={handlePromptModal}
+            className="hidden md:flex gap-1 text-sm"
+          >
+            {/* <AddIcon className="size-4 " /> */}
             <span className="">Add Prompt</span>
           </Button>
 
-          <Button className="text-sm ">Publish</Button>
+          <Button className="text-sm bg-gray-700 text-white">Publish</Button>
           <div className="hidden bg-orange-700 rounded-full size-8" />
         </div>
       </div>

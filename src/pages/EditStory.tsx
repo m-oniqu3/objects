@@ -6,7 +6,11 @@ function EditStory() {
     <div className="flex flex-col gap-12">
       <EditStoryNav />
 
-      <Editor />
+      <div className="wrapper max-w-7xl ">
+        <div className="w-full">
+          <Editor />
+        </div>
+      </div>
     </div>
   );
 }

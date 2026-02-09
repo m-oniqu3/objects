@@ -3,7 +3,7 @@ import NewStoryTitle from "./NewStoryTitle";
 
 function Editor() {
   return (
-    <div className="wrapper max-w-2xl flex flex-col gap-10">
+    <div className="mx-auto max-w-2xl flex flex-col gap-4">
       <NewStoryTitle />
       <NewStoryBody />
     </div>
