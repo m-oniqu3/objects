@@ -5,17 +5,19 @@ import {
 } from "../assets/icons";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
+import Editor from "../components/story/Editor";
 
 function NewStory() {
   return (
-    <div>
+    <div className="flex flex-col gap-12">
       <nav className="h-14 ">
         <div className="wrapper h-full flex items-center justify-between ">
           <div className="flex items-center gap-4">
             <ChevronLeftIcon className="size-4.5" />
-            <Logo />
-
-            <div className="flex items-center  gap-2">
+            <div className="hidden">
+              <Logo />
+            </div>
+            <div className="flex items-center gap-2">
               <p className="text-sm">Draft</p>
               <p className="text-sm">Saved</p>
             </div>
@@ -36,6 +38,8 @@ function NewStory() {
           </div>
         </div>
       </nav>
+
+      <Editor />
     </div>
   );
 }
