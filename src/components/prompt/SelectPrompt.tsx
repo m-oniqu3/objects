@@ -1,12 +1,15 @@
 import { useState, type ChangeEvent } from "react";
 import { CloseIcon, LoadingIcon, SearchIcon } from "../../assets/icons";
 import { useModal } from "../../contexts/modal/useModal";
+import { usePrompt } from "../../contexts/prompt/usePrompt";
 import usePrompts from "../../hooks/usePrompts";
+import type { PromptPreview } from "../../types/story";
 import InfiniteScroll from "../InfiniteScroll";
 
 function SelectPrompt() {
   const [search, setSearch] = useState("");
-  const { stopPropagation } = useModal();
+  const { stopPropagation, closeModal } = useModal();
+  const { setPrompt } = usePrompt();
 
   const {
     data: prompts,
@@ -21,10 +24,16 @@ function SelectPrompt() {
     setSearch(e.target.value);
   }
 
+  function handlePrompt(prompt: PromptPreview) {
+    setPrompt(prompt);
+    closeModal();
+  }
+
   const rendered_prompts = prompts.map((prompt) => {
     return (
       <li
         key={prompt.id}
+        onClick={() => handlePrompt(prompt)}
         className="px-4 py-4 cursor-pointer hover:bg-gray-100"
       >
         {prompt.title}
@@ -35,7 +44,7 @@ function SelectPrompt() {
   if (isLoading) {
     return (
       <div className="panel grid place-items-center">
-        <LoadingIcon className="size-6" />
+        <LoadingIcon className="size-6 animate-spin" />
       </div>
     );
   }

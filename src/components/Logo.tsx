@@ -1,5 +1,11 @@
+import { Link } from "react-router";
+
 function Logo() {
-  return <h1 className="text-lg font-semibold">objects</h1>;
+  return (
+    <Link to="/" className="text-xl font-semibold">
+      objects
+    </Link>
+  );
 }
 
 export default Logo;

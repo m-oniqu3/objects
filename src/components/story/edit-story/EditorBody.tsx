@@ -1,11 +1,11 @@
-function NewStoryBody() {
+function EditorBody() {
   return (
     <div
       contentEditable
       data-placeholder="Write something interesting..."
-      className="text-xl outline-none"
+      className="text-xl leading-relaxed outline-none"
     />
   );
 }
 
-export default NewStoryBody;
+export default EditorBody;

@@ -4,7 +4,7 @@ import { ModalTypes } from "../../../types/modal";
 import Button from "../../Button";
 import Logo from "../../Logo";
 
-function EditStoryNav() {
+function EditorNav() {
   const { openModal } = useModal();
 
   function handlePromptModal() {
@@ -20,25 +20,25 @@ function EditStoryNav() {
             <Logo />
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-sm">Draft</p>
-            <p className="text-sm">Saved</p>
+            <p className="text-xs uppercase tracking-wide">Draft</p>
+            <p className="text-xs uppercase tracking-wide">Saved</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <Button>
-            <HorizontalEllipsisIcon className="size-5" />
+            <HorizontalEllipsisIcon className="size-6" />
           </Button>
 
           <Button
             onClick={handlePromptModal}
-            className="hidden md:flex gap-1 text-sm"
+            className="hidden md:flex gap-1 text-xs uppercase tracking-wide"
           >
             {/* <AddIcon className="size-4 " /> */}
             <span className="">Add Prompt</span>
           </Button>
 
-          <Button className="text-sm bg-gray-700 text-white">Publish</Button>
+          <Button className=" text-xs uppercase tracking-wide">Publish</Button>
           <div className="hidden bg-orange-700 rounded-full size-8" />
         </div>
       </div>
@@ -46,4 +46,4 @@ function EditStoryNav() {
   );
 }
 
-export default EditStoryNav;
+export default EditorNav;

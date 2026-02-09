@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Modal from "./components/Modal.tsx";
 import { AuthContextProvider } from "./contexts/auth/AuthContextProvider.tsx";
 import ModalProvider from "./contexts/modal/provider.tsx";
+import PromptContextProvider from "./contexts/prompt/provider.tsx";
 import "./index.css";
 import RootLayout from "./layout/RootLayout.tsx";
 import SignIn from "./pages/auth/SignIn.tsx";
@@ -19,18 +20,20 @@ createRoot(root).render(
     <BrowserRouter>
       <AuthContextProvider>
         <ModalProvider>
-          <Modal />
-          <Routes>
-            <Route element={<RootLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/stories" element={<Stories />} />
-            </Route>
+          <PromptContextProvider>
+            <Modal />
+            <Routes>
+              <Route element={<RootLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/stories" element={<Stories />} />
+              </Route>
 
-            <Route path="/s/:id/edit" element={<EditStory />} />
+              <Route path="/s/:id/edit" element={<EditStory />} />
 
-            <Route path="/sign_in" element={<SignIn />} />
-            <Route path="/sign_up" element={<SignUp />} />
-          </Routes>
+              <Route path="/sign_in" element={<SignIn />} />
+              <Route path="/sign_up" element={<SignUp />} />
+            </Routes>
+          </PromptContextProvider>
         </ModalProvider>
       </AuthContextProvider>
     </BrowserRouter>

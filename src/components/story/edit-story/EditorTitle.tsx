@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function NewStoryTitle() {
+function EditorTitle() {
   const titleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ function NewStoryTitle() {
   );
 }
 
-export default NewStoryTitle;
+export default EditorTitle;

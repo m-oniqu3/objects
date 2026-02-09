@@ -5,7 +5,6 @@ import { useAuth } from "../../contexts/auth/useAuth";
 import { useModal } from "../../contexts/modal/useModal";
 import { createDraft } from "../../services/stories/create-draft";
 import { ModalTypes } from "../../types/modal";
-import Button from "../Button";
 import Logo from "../Logo";
 
 function AuthNavigation() {
@@ -18,7 +17,7 @@ function AuthNavigation() {
   const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
-      <li key={link} className="text-sm">
+      <li key={link} className="text-xs uppercase tracking-wide">
         <Link to={`/${link}`}>{link}</Link>
       </li>
     );
@@ -64,16 +63,20 @@ function AuthNavigation() {
           </button>
 
           <div className="hidden md:flex items-center gap-4">
-            <p onClick={handleModal} className="text-sm cursor-pointer">
+            <button
+              onClick={handleModal}
+              className="text-xs uppercase tracking-wide cursor-pointer"
+            >
               Create
-            </p>
-            <Button
+            </button>
+
+            <button
               onClick={handleNewStory}
               disabled={isCreatingDraft}
-              className="text-sm cursor-pointer"
+              className="text-xs uppercase tracking-wide cursor-pointer"
             >
               Write
-            </Button>
+            </button>
             <div className="bg-orange-700 rounded-full size-8" />
           </div>
         </div>
