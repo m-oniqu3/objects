@@ -28,7 +28,8 @@
     }
 
     .panel {
-        @apply bg-white h-full max-h-125 p-4 w-full max-w-sm mx-auto overflow-scroll no-scrollbar
+        @apply bg-white p-4 w-full max-w-sm mx-auto overflow-y-auto no-scrollbar;
+        @apply h-[85vh] md:max-h-125;
     }
 
     .input-error {

@@ -3,10 +3,18 @@ import {
   ChevronLeftIcon,
   HorizontalEllipsisIcon,
 } from "../../../assets/icons";
+import { useModal } from "../../../contexts/modal/useModal";
+import { ModalTypes } from "../../../types/modal";
 import Button from "../../Button";
 import Logo from "../../Logo";
 
 function EditStoryNav() {
+  const { openModal } = useModal();
+
+  function handlePromptModal() {
+    openModal(ModalTypes.SELECT_PROMPT_MODAL);
+  }
+
   return (
     <nav className="h-14 ">
       <div className="wrapper h-full flex items-center justify-between ">
@@ -26,10 +34,9 @@ function EditStoryNav() {
             <HorizontalEllipsisIcon className="size-5" />
           </Button>
 
-          <Button className="hidden md:flex ">
+          <Button onClick={handlePromptModal} className="hidden md:flex gap-1">
             <AddIcon className="size-4 " />
-
-            <span className=""> Add Prompt</span>
+            <span className="">Add Prompt</span>
           </Button>
 
           <Button className="text-sm ">Publish</Button>

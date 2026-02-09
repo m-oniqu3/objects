@@ -1,3 +1,5 @@
+import useSWRInfinite from "swr/infinite";
+
 import InfiniteScroll from "../components/InfiniteScroll";
 import StoryPreview from "../components/story/StoryPreview";
 import { getPublishedStories } from "../services/stories/get-published-stories";
@@ -27,10 +29,10 @@ function Stories() {
     return ["published_stories", page];
   }
 
-  // const { data, isLoading, isValidating, setSize } = useSWRInfinite(
-  //   getKey,
-  //   publishedStoriesFetcher,
-  // );
+  const { data, isLoading, isValidating, setSize } = useSWRInfinite(
+    getKey,
+    publishedStoriesFetcher,
+  );
 
   console.log(data);
 

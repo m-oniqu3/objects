@@ -1,51 +1,68 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { LoadingIcon } from "../assets/icons";
 
-type Props = {
-  children: ReactNode;
+interface InfiniteScrollProps {
+  children: React.ReactNode;
   isLoading: boolean;
-  hasMore: boolean;
+  canStopFetching: boolean;
   fetcher: () => void;
-};
+}
 
-function InfiniteScroll(props: Props) {
-  const { children, fetcher, isLoading, hasMore } = props;
+function InfiniteScroll({
+  children,
+  isLoading,
+  canStopFetching,
+  fetcher,
+}: InfiniteScrollProps) {
+  const observerTarget = useRef<HTMLDivElement>(null);
 
-  const targetRef = useRef<HTMLDivElement | null>(null);
+  const fetchFn = useCallback(() => {
+    fetcher();
+  }, [fetcher]);
 
   useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
+    // Don't set up observer if we should stop fetching
+    if (canStopFetching) return;
 
-    function callback(entries: IntersectionObserverEntry[]) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !isLoading && hasMore) {
-          console.log("intersecting - fetching more");
-          fetcher();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // When the sentinel element is visible and we're not already loading
+        if (entries[0].isIntersecting && !isLoading) {
+          fetchFn();
         }
-      });
+      },
+      { threshold: 0.1 }, // Trigger when 10% visible
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
     }
 
-    const observer = new IntersectionObserver(callback, options);
-
-    if (targetRef.current) observer.observe(targetRef.current);
-
     return () => {
-      observer.disconnect();
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
     };
-  }, [fetcher, isLoading, hasMore]);
+  }, [canStopFetching, isLoading, fetchFn]);
 
   return (
-    <div>
+    <>
       {children}
 
-      <div ref={targetRef} className="h-20 grid place-items-center">
-        {isLoading && <p>loading.. </p>}
-        {!hasMore && !isLoading && <p>No more stories</p>}
-      </div>
-    </div>
+      {/* Sentinel element that triggers loading */}
+      {!canStopFetching && (
+        <div ref={observerTarget} className="py-4 grid place-items-center">
+          {isLoading && <LoadingIcon className="size-5" />}
+        </div>
+      )}
+
+      {canStopFetching && (
+        <p className="text-center text-sm text-neutral-500 py-4">
+          No more prompts
+        </p>
+      )}
+    </>
   );
 }
 
