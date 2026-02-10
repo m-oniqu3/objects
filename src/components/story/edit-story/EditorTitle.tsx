@@ -14,7 +14,7 @@ function EditorTitle() {
         contentEditable="true"
         data-placeholder="Title"
         id="new-story-title"
-        className="text-4xl leading-12 line wrap-break-word outline-none"
+        className="text-4xl leading-10 tracking-wide font-medium line wrap-break-word outline-none"
         suppressContentEditableWarning
       />
 
@@ -22,7 +22,7 @@ function EditorTitle() {
         contentEditable="true"
         data-placeholder="Subtitle"
         id="new-story-subtitle"
-        className="text-2xl wrap-break-word outline-none"
+        className="text-xl wrap-break-word outline-none"
         suppressContentEditableWarning
       />
     </div>

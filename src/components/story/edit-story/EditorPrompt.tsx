@@ -31,7 +31,9 @@ function EditorPrompt() {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="uppercase text-sm tracking-wide ">{prompt.title}</p>
+      <p className="uppercase text-sm tracking-wide leading-relaxed">
+        {prompt.title}
+      </p>
       <div className="flex gap-2 ">{rendered_prompt_actions}</div>
     </div>
   );
