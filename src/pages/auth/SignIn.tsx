@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../contexts/auth/useAuth";
 import { signIn } from "../../services/auth";
 import {
   signInSchema,
@@ -9,7 +8,7 @@ import {
 } from "../../utils/validation/auth";
 
 function SignIn() {
-  const { isLoading } = useAuth();
+  const { isLoading } = useAuthContext();
   const navigate = useNavigate();
   console.log(isLoading);
 

@@ -1,5 +1,4 @@
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
-import { useAuth } from "../../contexts/auth/useAuth";
 import { useModal } from "../../contexts/modal/useModal";
 import { createPrompt } from "../../services/prompts/create-prompt";
 import Button from "../Button";
@@ -10,7 +9,7 @@ function CreatePrompt() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
   function handleInputChange(
     e: ChangeEvent<HTMLInputElement, HTMLInputElement>,

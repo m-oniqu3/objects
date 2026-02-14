@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { MenuIcon } from "../../assets/icons";
-import { useAuth } from "../../contexts/auth/useAuth";
+import { useAuthContext } from "../../contexts/auth/useAuth";
 import { useModal } from "../../contexts/modal/useModal";
 import { createDraft } from "../../services/stories/create-draft";
 import { ModalTypes } from "../../types/modal";
@@ -11,7 +11,7 @@ function AuthNavigation() {
   const navigate = useNavigate();
 
   const { openModal } = useModal();
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const [isCreatingDraft, setIsCreatingDraft] = useState(false);
 
   const links = ["stories", "prompts", "threads"];

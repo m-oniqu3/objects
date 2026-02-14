@@ -24,7 +24,7 @@ export async function createDraft(): CreatDraftResponse {
     console.log(error);
     return {
       data: null,
-      error: error instanceof Error ? error.message : String(error),
+      error: error instanceof Error ? error.message : "Failed to create draft.",
     };
   }
 }

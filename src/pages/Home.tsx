@@ -1,9 +1,8 @@
-import { useAuth } from "../contexts/auth/useAuth";
 import Feed from "./Feed";
 import Landing from "./Landing";
 
 function Home() {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
 
   const isAuth = true;
 

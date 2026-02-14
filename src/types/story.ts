@@ -24,3 +24,5 @@ export type PublishedStory = {
   author: AuthorPreview;
   prompt: PromptPreview | null;
 };
+
+export type StoryStatus = "draft" | "published";

@@ -1,14 +1,30 @@
+import { useState } from "react";
 import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
 import { useModal } from "../../../contexts/modal/useModal";
 import { ModalTypes } from "../../../types/modal";
 import Button from "../../Button";
 import Logo from "../../Logo";
 
-function EditorNav() {
+type Props = {
+  saveDraft: () => Promise<void>;
+};
+
+function EditorNav(props: Props) {
+  const { saveDraft } = props;
+
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+
   const { openModal } = useModal();
 
   function handlePromptModal() {
     openModal(ModalTypes.SELECT_PROMPT_MODAL);
+  }
+
+  async function handleSaveDraft() {
+    setIsSavingDraft(true);
+
+    await saveDraft();
+    setIsSavingDraft(false);
   }
 
   return (
@@ -21,7 +37,6 @@ function EditorNav() {
           </div>
           <div className="flex items-center gap-2">
             <p className="text-xs uppercase tracking-wide">Draft</p>
-            <p className="text-xs uppercase tracking-wide">Saved</p>
           </div>
         </div>
 
@@ -31,10 +46,19 @@ function EditorNav() {
           </Button>
 
           <Button
+            disabled={isSavingDraft}
+            onClick={handleSaveDraft}
+            className="hidden md:flex gap-1 text-xs uppercase tracking-wide"
+          >
+            <span className="">
+              {isSavingDraft ? "saving..." : "save draft"}
+            </span>
+          </Button>
+
+          <Button
             onClick={handlePromptModal}
             className="hidden md:flex gap-1 text-xs uppercase tracking-wide"
           >
-            {/* <AddIcon className="size-4 " /> */}
             <span className="">Add Prompt</span>
           </Button>
 

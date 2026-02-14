@@ -1,9 +1,9 @@
 import { useModal } from "../../../contexts/modal/useModal";
-import { usePrompt } from "../../../contexts/prompt/usePrompt";
+import { usePromptContext } from "../../../contexts/prompt/usePrompt";
 import { ModalTypes } from "../../../types/modal";
 
 function EditorPrompt() {
-  const { prompt, clearPrompt } = usePrompt();
+  const { prompt, clearPrompt } = usePromptContext();
   const { openModal } = useModal();
 
   function handleEditPrompt() {

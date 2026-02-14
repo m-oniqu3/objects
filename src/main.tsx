@@ -9,7 +9,7 @@ import "./index.css";
 import RootLayout from "./layout/RootLayout.tsx";
 import SignIn from "./pages/auth/SignIn.tsx";
 import SignUp from "./pages/auth/SignUp.tsx";
-import EditStory from "./pages/EditStory.tsx";
+import Editor from "./pages/Editor.tsx";
 import Home from "./pages/Home.tsx";
 import Stories from "./pages/Stories.tsx";
 
@@ -28,7 +28,7 @@ createRoot(root).render(
                 <Route path="/stories" element={<Stories />} />
               </Route>
 
-              <Route path="/s/:id/edit" element={<EditStory />} />
+              <Route path="/s/:id/edit" element={<Editor />} />
 
               <Route path="/sign_in" element={<SignIn />} />
               <Route path="/sign_up" element={<SignUp />} />

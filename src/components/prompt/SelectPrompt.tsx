@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import { CloseIcon, LoadingIcon, SearchIcon } from "../../assets/icons";
 import { useModal } from "../../contexts/modal/useModal";
-import { usePrompt } from "../../contexts/prompt/usePrompt";
+import { usePromptContext } from "../../contexts/prompt/usePrompt";
 import usePrompts from "../../hooks/usePrompts";
 import type { PromptPreview } from "../../types/story";
 import InfiniteScroll from "../InfiniteScroll";
@@ -9,7 +9,7 @@ import InfiniteScroll from "../InfiniteScroll";
 function SelectPrompt() {
   const [search, setSearch] = useState("");
   const { stopPropagation, closeModal } = useModal();
-  const { setPrompt } = usePrompt();
+  const { setPrompt } = usePromptContext();
 
   const {
     data: prompts,
