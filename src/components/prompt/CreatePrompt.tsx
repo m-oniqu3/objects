@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
+import { useAuthContext } from "../../contexts/auth/useAuth";
 import { useModal } from "../../contexts/modal/useModal";
 import { createPrompt } from "../../services/prompts/create-prompt";
 import Button from "../Button";
