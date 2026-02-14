@@ -1,22 +1,56 @@
-import { Link } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { MenuIcon } from "../../assets/icons";
+import { useAuthContext } from "../../contexts/auth/useAuth";
+import { useModal } from "../../contexts/modal/useModal";
+import { createDraft } from "../../services/stories/create-draft";
+import { ModalTypes } from "../../types/modal";
+import Logo from "../Logo";
 
 function AuthNavigation() {
-  const links = ["stories", "prompts", "threads"];
+  const navigate = useNavigate();
 
+  const { openModal } = useModal();
+  const { user } = useAuthContext();
+  const [isCreatingDraft, setIsCreatingDraft] = useState(false);
+
+  const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
-      <li key={link}>
+      <li key={link} className="text-xs uppercase tracking-wider font-medium">
         <Link to={`/${link}`}>{link}</Link>
       </li>
     );
   });
 
+  function handleModal() {
+    openModal(ModalTypes.CREATE_PROMPT_MODAL);
+  }
+
+  async function handleNewStory() {
+    try {
+      setIsCreatingDraft(true);
+      if (!user) return;
+
+      const { data, error } = await createDraft();
+
+      if (error) throw error;
+
+      if (!data) return;
+
+      navigate(`/s/${data.id}/edit`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsCreatingDraft(false);
+    }
+  }
+
   return (
     <nav className="grid place-items-center h-16 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <p className="font-bold">objects</p>
+          <Logo />
 
           <ul className="hidden md:flex items-center gap-4">
             {rendered_links}
@@ -29,8 +63,21 @@ function AuthNavigation() {
           </button>
 
           <div className="hidden md:flex items-center gap-4">
-            <Link to={"/new"}>Write</Link>
-            <div className="bg-gray-200 rounded-full size-9" />
+            <button
+              onClick={handleModal}
+              className="text-xs uppercase tracking-wide cursor-pointer"
+            >
+              Create
+            </button>
+
+            <button
+              onClick={handleNewStory}
+              disabled={isCreatingDraft}
+              className="text-xs uppercase tracking-wide cursor-pointer"
+            >
+              Write
+            </button>
+            <div className="bg-orange-700 rounded-full size-8" />
           </div>
         </div>
       </div>

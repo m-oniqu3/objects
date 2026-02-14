@@ -6,12 +6,18 @@ type Props = {
 
 function Welcome({ onDismiss }: Props) {
   return (
-    <div className="bg-zinc-50 shadow-2xs h-16 flex justify-center items-center gap-4">
-      <p className="text-sm">A place for short reads — and writing them.</p>
+    <div className="bg-neutral-100 h-12 w-full fle">
+      <div className="wrapper  h-full flex justify-center items-center gap-4">
+        <p className="text-sm">A place for short reads — and writing them.</p>
 
-      <button onClick={onDismiss} aria-label="Dismiss welcome banner">
-        <CloseIcon className="size-4.5" />
-      </button>
+        <button
+          onClick={onDismiss}
+          aria-label="Dismiss welcome banner"
+          className="flex justify-center items-center"
+        >
+          <CloseIcon className="size-4" />
+        </button>
+      </div>
     </div>
   );
 }

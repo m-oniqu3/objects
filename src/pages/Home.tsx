@@ -1,10 +1,10 @@
-import { useAuth } from "../contexts/useAuth";
+import { useAuthContext } from "../contexts/auth/useAuth";
 import Feed from "./Feed";
 import Landing from "./Landing";
 
 function Home() {
-  const { user } = useAuth();
-  console.log(user);
+  const { user } = useAuthContext();
+
   const isAuth = true;
 
   const component = isAuth ? <Feed /> : <Landing />;

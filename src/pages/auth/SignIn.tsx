@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../contexts/useAuth";
+import { useNavigate } from "react-router";
+import { useAuthContext } from "../../contexts/auth/useAuth";
 import { signIn } from "../../services/auth";
 import {
   signInSchema,
@@ -8,7 +9,8 @@ import {
 } from "../../utils/validation/auth";
 
 function SignIn() {
-  const { isLoading } = useAuth();
+  const { isLoading } = useAuthContext();
+  const navigate = useNavigate();
   console.log(isLoading);
 
   const form = useForm<SignInCredentials>({
@@ -25,6 +27,8 @@ function SignIn() {
       const { error } = await signIn(values);
 
       if (error) throw error;
+
+      navigate("/");
     } catch (error: unknown) {
       console.log(error);
       form.setError("root", { message: error as unknown as string });

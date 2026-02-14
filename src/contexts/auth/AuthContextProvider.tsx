@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 import type { Session, User } from "@supabase/supabase-js";
 import { useNavigate } from "react-router";
-import { supabase } from "../lib/supabase";
+
+import { supabase } from "../../lib/supabase";
 import { AuthContext } from "./AuthContext";
 
 export function AuthContextProvider({
@@ -28,17 +29,17 @@ export function AuthContextProvider({
     // Listen for future auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
 
-      if (event === "SIGNED_OUT") {
-        navigate("/");
-      }
+      // if (event === "SIGNED_OUT") {
+      //   navigate("/");
+      // }
 
-      if (event === "SIGNED_IN") {
-        navigate("/");
-      }
+      // if (event === "SIGNED_IN") {
+      //   navigate("/");
+      // }
     });
 
     return () => subscription.unsubscribe();

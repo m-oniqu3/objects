@@ -1,9 +1,11 @@
 import { Link } from "react-router";
-import type { PublishedStory } from "../../types/story";
+import { CommentIcon, HeartOutlineIcon, RepostIcon } from "../../assets/icons";
+import type { StoryPreview as SPreview } from "../../types/story";
 import { formatDate } from "../../utils/validation/format-date";
+import Metric from "../Metric";
 
 type Props = {
-  story: PublishedStory;
+  story: SPreview;
 };
 
 function StoryPreview(props: Props) {
@@ -11,62 +13,83 @@ function StoryPreview(props: Props) {
     story: {
       id,
       title,
-      content,
+      subtitle,
+      snippet,
       slug,
       published_at,
-      genres,
+
       author: { fullname, avatar_url },
       prompt,
     },
   } = props;
 
-  const story_link = `/story/${id}-${slug}`;
+  const story_link = `/s/${slug}/${id}`;
 
-  const rendred_genres = genres
-    ? genres.map(({ id, name }) => {
-        return (
-          <li key={id} className="text-sm">
-            {name}
-          </li>
-        );
-      })
-    : null;
+  // const rendred_genres = genres
+  //   ? genres.map(({ id, name }) => {
+  //       return (
+  //         <li key={id} className="text-sm">
+  //           {name}
+  //         </li>
+  //       );
+  //     })
+  //   : null;
 
   const avatar =
     avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
 
+  const story_stats = [
+    { icon: HeartOutlineIcon, value: 0 },
+    { icon: CommentIcon, value: 0 },
+    { icon: RepostIcon, value: 0 },
+  ];
+
+  const rendered_stats = story_stats.map((stat, i) => {
+    return <Metric key={i} icon={stat.icon} value={stat.value} />;
+  });
+
   return (
-    <article className="border-b border-zinc-100 py-10">
-      <Link to={story_link} className="flex flex-col gap-4">
-        {rendred_genres && <ul>{rendred_genres}</ul>}
-
-        <div>
-          <h1 className="text-xl">{title}</h1>
-          {prompt && (
-            <p className="text-sm">
-              <span className="">In response to&nbsp;</span>
-              {prompt.title}
-            </p>
-          )}
-        </div>
-
-        <p className="text-sm">{formatDate(published_at)}</p>
-
+    <article className="border-b border-zinc-100 pb-4">
+      <Link to={story_link} className="flex flex-col gap-3">
         <div className="flex items-center gap-4">
           <figure>
             <img
               src={avatar}
               alt={"Avatar" + fullname}
-              className="object-cover size-10 rounded-full"
+              className="object-cover size-8 rounded-full"
             />
           </figure>
 
-          <p>{fullname}</p>
+          <p className="text-xs uppercase leading-8 tracking-wider flex items-center gap-2">
+            <span>{fullname}</span>
+            &bull;
+            <span className="lowercase text-neutral-500">
+              {formatDate(published_at)}
+            </span>
+          </p>
         </div>
 
-        <p className=""> {content.slice(0, 250)}</p>
+        {prompt && (
+          <p className="text-xs capitalize leading-4 tracking-wider text-neutral-600">
+            {prompt.title}
+          </p>
+        )}
 
-        <div></div>
+        <div className="flex flex-col gap-1">
+          <h1 className="text-lg font-medium">{title}</h1>
+
+          {subtitle && (
+            <p className="text-xs capitalize leading-4 tracking-wider text-neutral-800 ">
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        <p className="text-sm leading-normal tracking-wide text-neutral-800">
+          {snippet}
+        </p>
+
+        <div className="flex items-center gap-6 pt-4">{rendered_stats}</div>
       </Link>
     </article>
   );

@@ -60,7 +60,7 @@ export type Database = {
         Row: {
           archived_at: string | null
           created_at: string
-          created_by: string | null
+          created_by: string
           id: number
           is_archived: boolean
           title: string
@@ -68,15 +68,15 @@ export type Database = {
         Insert: {
           archived_at?: string | null
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           id?: number
           is_archived?: boolean
-          title: string
+          title?: string
         }
         Update: {
           archived_at?: string | null
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           id?: number
           is_archived?: boolean
           title?: string
@@ -94,43 +94,49 @@ export type Database = {
       stories: {
         Row: {
           author_id: string
-          content: string
+          body: string
           created_at: string
-          id: number
-          is_published: boolean
+          id: string
           prompt_id: number | null
           published_at: string | null
           slug: string
+          snippet: string | null
+          status: Database["public"]["Enums"]["story_status"]
+          subtitle: string | null
           title: string
           updated_at: string
         }
         Insert: {
-          author_id: string
-          content?: string
+          author_id?: string
+          body?: string
           created_at?: string
-          id?: number
-          is_published?: boolean
+          id?: string
           prompt_id?: number | null
           published_at?: string | null
           slug?: string
+          snippet?: string | null
+          status?: Database["public"]["Enums"]["story_status"]
+          subtitle?: string | null
           title?: string
           updated_at?: string
         }
         Update: {
           author_id?: string
-          content?: string
+          body?: string
           created_at?: string
-          id?: number
-          is_published?: boolean
+          id?: string
           prompt_id?: number | null
           published_at?: string | null
           slug?: string
+          snippet?: string | null
+          status?: Database["public"]["Enums"]["story_status"]
+          subtitle?: string | null
           title?: string
           updated_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: "stories_author_id_fkey"
+            foreignKeyName: "stories_author_id_fkey1"
             columns: ["author_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -148,15 +154,15 @@ export type Database = {
       stories_genres: {
         Row: {
           genre_id: number
-          story_id: number
+          story_id: string
         }
         Insert: {
           genre_id: number
-          story_id: number
+          story_id: string
         }
         Update: {
           genre_id?: number
-          story_id?: number
+          story_id?: string
         }
         Relationships: [
           {
@@ -177,24 +183,13 @@ export type Database = {
       }
     }
     Views: {
-      feed_view: {
-        Row: {
-          author_name: string | null
-          created_at: string | null
-          id: number | null
-          response_count: number | null
-          snippet: string | null
-          title: string | null
-          type: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      story_status: "draft" | "published"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -321,6 +316,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      story_status: ["draft", "published"],
+    },
   },
 } as const

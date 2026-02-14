@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 // helper hook
-export function useAuth() {
+export function useAuthContext() {
   const ctx = useContext(AuthContext);
 
   if (!ctx) {
