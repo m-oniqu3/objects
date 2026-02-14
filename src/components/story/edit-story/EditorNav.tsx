@@ -2,17 +2,18 @@ import { useState } from "react";
 import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
 import { useModal } from "../../../contexts/modal/useModal";
 import { ModalTypes } from "../../../types/modal";
+import type { StoryType } from "../../../types/story";
 import Button from "../../Button";
 import Logo from "../../Logo";
 
 type Props = {
-  saveDraft: () => Promise<void>;
+  saveStory: (type: StoryType) => Promise<{ id: string } | null | undefined>;
 };
 
 function EditorNav(props: Props) {
-  const { saveDraft } = props;
+  const { saveStory } = props;
 
-  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [isSavingStory, setIsSavingStory] = useState<StoryType | null>(null);
 
   const { openModal } = useModal();
 
@@ -20,11 +21,21 @@ function EditorNav(props: Props) {
     openModal(ModalTypes.SELECT_PROMPT_MODAL);
   }
 
-  async function handleSaveDraft() {
-    setIsSavingDraft(true);
+  async function handleSaveStory(type: StoryType) {
+    try {
+      setIsSavingStory(type);
 
-    await saveDraft();
-    setIsSavingDraft(false);
+      const result = await saveStory(type);
+
+      if (result?.id) {
+        console.log(result.id);
+        console.log(type === "draft" ? "draft saved!" : "story published");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSavingStory(null);
+    }
   }
 
   return (
@@ -46,12 +57,12 @@ function EditorNav(props: Props) {
           </Button>
 
           <Button
-            disabled={isSavingDraft}
-            onClick={handleSaveDraft}
+            disabled={!!isSavingStory}
+            onClick={() => handleSaveStory("draft")}
             className="hidden md:flex gap-1 text-xs uppercase tracking-wide"
           >
             <span className="">
-              {isSavingDraft ? "saving..." : "save draft"}
+              {isSavingStory === "draft" ? "saving..." : "save draft"}
             </span>
           </Button>
 
@@ -62,7 +73,13 @@ function EditorNav(props: Props) {
             <span className="">Add Prompt</span>
           </Button>
 
-          <Button className=" text-xs uppercase tracking-wide">Publish</Button>
+          <Button
+            disabled={!!isSavingStory}
+            onClick={() => handleSaveStory("publish")}
+            className=" text-xs uppercase tracking-wide"
+          >
+            {isSavingStory === "publish" ? "saving..." : "publish"}
+          </Button>
           <div className="hidden bg-orange-700 rounded-full size-8" />
         </div>
       </div>

@@ -26,3 +26,16 @@ export type PublishedStory = {
 };
 
 export type StoryStatus = "draft" | "published";
+export type StoryType = "draft" | "publish";
+
+export type Story = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  slug: string;
+  snippet: string;
+  body: string;
+  prompt_id: number | null;
+  status: StoryStatus;
+  published_at?: string | null;
+};

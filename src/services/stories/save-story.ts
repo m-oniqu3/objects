@@ -1,24 +1,25 @@
 import { supabase } from "../../lib/supabase";
 import type { Result } from "../../types/result";
-import type { StoryStatus } from "../../types/story";
-import { slugify } from "../../utils/slug";
+import type { Story } from "../../types/story";
 
 type Props = {
-  title: string;
-  subtitle: string;
-  snippet: string;
-  body: string;
-  storyID: string;
-  promptID: number | null;
-  status: StoryStatus;
+  story: Story;
 };
 
 type SaveStoryResponse = Result<{ id: string } | null>;
 
 async function saveStory(props: Props): SaveStoryResponse {
-  const { title, subtitle, body, promptID, storyID, snippet, status } = props;
-
-  const slug = slugify(props.title);
+  const {
+    title,
+    slug,
+    subtitle,
+    body,
+    id,
+    prompt_id,
+    snippet,
+    status,
+    published_at = null,
+  } = props.story;
 
   try {
     const { data: auth, error: authError } = await supabase.auth.getUser();
@@ -37,9 +38,10 @@ async function saveStory(props: Props): SaveStoryResponse {
         snippet,
         status,
         body,
-        prompt_id: promptID,
+        prompt_id,
+        published_at,
       })
-      .eq("id", storyID)
+      .eq("id", id)
       .eq("author_id", auth.user.id)
       .select("id")
       .single();

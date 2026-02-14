@@ -7,7 +7,8 @@ import EditorTitle from "../components/story/edit-story/EditorTitle";
 import { useAuthContext } from "../contexts/auth/useAuth";
 import { usePromptContext } from "../contexts/prompt/usePrompt";
 import saveStory from "../services/stories/save-story";
-import type { StoryStatus } from "../types/story";
+import type { Story, StoryType } from "../types/story";
+import { slugify } from "../utils/slug";
 
 function createSnippet(html: string, maxLength = 300): string {
   const temp = document.createElement("div");
@@ -56,31 +57,43 @@ function Editor() {
     setStoryBody(content);
   }
 
-  async function handleSaveDraft() {
+  // save story as draft or publish it
+  async function handleSaveStory(
+    type: StoryType,
+  ): Promise<{ id: string } | null | undefined> {
     if (!userID || !storyID) return;
 
-    const snippet = createSnippet(storyBody);
+    // For publishing, require title and body
+    if (type === "publish" && (!headings.title || !storyBody)) {
+      console.error("Cannot publish: title and body are required.");
+      return;
+    }
 
-    const story = {
-      ...headings,
+    const snippet = storyBody ? createSnippet(storyBody) : "";
+    const slug = headings.title ? slugify(headings.title) : "";
+
+    const story: Story = {
+      id: storyID,
+      title: headings.title || "",
+      subtitle: headings.subtitle || "",
+      slug,
       snippet,
-      body: storyBody,
-      promptID,
-      storyID,
-      status: "draft" as StoryStatus,
+      body: storyBody || "",
+      prompt_id: promptID,
+      status: type === "publish" ? "published" : "draft",
+      ...(type === "publish" && { published_at: new Date().toISOString() }),
     };
 
-    const { data, error } = await saveStory(story);
+    const { data, error } = await saveStory({ story });
 
-    if (error) console.log(error);
+    if (error) throw error;
 
-    console.log(data);
-    console.log("saved");
+    return data;
   }
 
   return (
     <div className="flex flex-col gap-12 pb-12">
-      <EditorNav saveDraft={handleSaveDraft} />
+      <EditorNav saveStory={handleSaveStory} />
 
       <div className="wrapper max-w-7xl ">
         <div className="w-full mx-auto max-w-2xl flex flex-col gap-8">
