@@ -17,7 +17,7 @@ function AuthNavigation() {
   const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
-      <li key={link} className="text-xs uppercase tracking-wide">
+      <li key={link} className="text-xs uppercase tracking-wider font-medium">
         <Link to={`/${link}`}>{link}</Link>
       </li>
     );
@@ -47,7 +47,7 @@ function AuthNavigation() {
   }
 
   return (
-    <nav className="grid place-items-center h-14 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
+    <nav className="grid place-items-center h-16 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Logo />

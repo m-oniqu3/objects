@@ -43,7 +43,14 @@ async function getPublishedStory(id: string): GetStoryResponse {
     return { data: story, error: null };
   } catch (error) {
     console.error("Failed to fetch story:", error);
-    throw error;
+
+    return {
+      data: null,
+      error:
+        error instanceof Error
+          ? error.message
+          : "An unknown error occurred while trying to fetch story.",
+    };
   }
 }
 

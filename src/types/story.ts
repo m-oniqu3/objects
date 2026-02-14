@@ -26,6 +26,18 @@ export type PublishedStory = {
   prompt: PromptPreview | null;
 };
 
+export type StoryPreview = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  slug: string;
+  snippet: string;
+  published_at: string;
+  genres: Array<Genre> | null;
+  author: AuthorPreview;
+  prompt: PromptPreview | null;
+};
+
 export type StoryStatus = "draft" | "published";
 export type StoryType = "draft" | "publish";
 

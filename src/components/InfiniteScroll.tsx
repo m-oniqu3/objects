@@ -57,11 +57,11 @@ function InfiniteScroll({
         </div>
       )}
 
-      {canStopFetching && (
+      {/* {canStopFetching && (
         <p className="text-center text-sm text-neutral-500 py-4">
           No more prompts
         </p>
-      )}
+      )} */}
     </>
   );
 }
