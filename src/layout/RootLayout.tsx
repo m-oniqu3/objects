@@ -10,9 +10,12 @@ function RootLayout() {
 
   return (
     <>
-      <div className="flex flex-col">
-        {nav}
-        <Welcome onDismiss={() => {}} />
+      <div className="flex flex-col gap-8 relative">
+        <div className="sticky top-0 left-0 w-full">
+          {nav}
+          <Welcome onDismiss={() => {}} />
+        </div>
+
         <div className="wrapper pb-20">
           <Outlet />
         </div>

@@ -136,6 +136,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "stories_author_id_fkey1"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "stories_prompt_id_fkey"
             columns: ["prompt_id"]
             isOneToOne: false
@@ -147,15 +154,15 @@ export type Database = {
       stories_genres: {
         Row: {
           genre_id: number
-          story_id: number
+          story_id: string
         }
         Insert: {
           genre_id: number
-          story_id: number
+          story_id: string
         }
         Update: {
           genre_id?: number
-          story_id?: number
+          story_id?: string
         }
         Relationships: [
           {
@@ -163,6 +170,13 @@ export type Database = {
             columns: ["genre_id"]
             isOneToOne: false
             referencedRelation: "genres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stories_genres_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
             referencedColumns: ["id"]
           },
         ]

@@ -15,10 +15,11 @@ export type Genre = {
 };
 
 export type PublishedStory = {
-  id: number;
+  id: string;
   title: string;
+  subtitle: string | null;
   slug: string;
-  content: string;
+  body: string;
   published_at: string;
   genres: Array<Genre> | null;
   author: AuthorPreview;

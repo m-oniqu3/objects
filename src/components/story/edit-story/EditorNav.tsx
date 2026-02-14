@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
 import { useModal } from "../../../contexts/modal/useModal";
 import { ModalTypes } from "../../../types/modal";
@@ -7,15 +8,17 @@ import Button from "../../Button";
 import Logo from "../../Logo";
 
 type Props = {
-  saveStory: (type: StoryType) => Promise<{ id: string } | null | undefined>;
+  saveStory: (
+    type: StoryType,
+  ) => Promise<{ id: string; slug: string } | null | undefined>;
 };
 
 function EditorNav(props: Props) {
   const { saveStory } = props;
 
   const [isSavingStory, setIsSavingStory] = useState<StoryType | null>(null);
-
   const { openModal } = useModal();
+  const navigate = useNavigate();
 
   function handlePromptModal() {
     openModal(ModalTypes.SELECT_PROMPT_MODAL);
@@ -25,11 +28,14 @@ function EditorNav(props: Props) {
     try {
       setIsSavingStory(type);
 
-      const result = await saveStory(type);
+      const story = await saveStory(type);
 
-      if (result?.id) {
-        console.log(result.id);
+      if (story) {
+        console.log(story.id);
         console.log(type === "draft" ? "draft saved!" : "story published");
+
+        // todo: navigate to the new story
+        navigate(`/s/${story.slug}/${story.id}`);
       }
     } catch (err) {
       console.error(err);

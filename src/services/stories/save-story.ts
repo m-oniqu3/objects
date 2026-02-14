@@ -6,7 +6,7 @@ type Props = {
   story: Story;
 };
 
-type SaveStoryResponse = Result<{ id: string } | null>;
+type SaveStoryResponse = Result<{ id: string; slug: string } | null>;
 
 async function saveStory(props: Props): SaveStoryResponse {
   const {
@@ -43,7 +43,7 @@ async function saveStory(props: Props): SaveStoryResponse {
       })
       .eq("id", id)
       .eq("author_id", auth.user.id)
-      .select("id")
+      .select("id, slug")
       .single();
 
     if (error) throw error;

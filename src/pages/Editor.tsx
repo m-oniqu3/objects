@@ -31,25 +31,17 @@ function Editor() {
   const promptID = prompt?.id ?? null;
   const userID = user?.id;
 
-  //get story ID
+  //get story ID -  // ['s', id, 'edit']
   const { pathname } = useLocation();
-  // ['s', id, 'edit']
   const [, storyID] = pathname.split("/").filter((el) => el !== "");
 
   type Key = keyof typeof headings;
-  const [headings, setHeadings] = useState({
-    title: "",
-    subtitle: "",
-  });
-
+  const [headings, setHeadings] = useState({ title: "", subtitle: "" });
   const [storyBody, setStoryBody] = useState("");
 
   function handleTitleChange(key: Key, value: string) {
     setHeadings((prev) => {
-      return {
-        ...prev,
-        [key]: value,
-      };
+      return { ...prev, [key]: value };
     });
   }
 
@@ -60,7 +52,7 @@ function Editor() {
   // save story as draft or publish it
   async function handleSaveStory(
     type: StoryType,
-  ): Promise<{ id: string } | null | undefined> {
+  ): Promise<{ id: string; slug: string } | null | undefined> {
     if (!userID || !storyID) return;
 
     // For publishing, require title and body
