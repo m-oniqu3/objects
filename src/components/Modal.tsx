@@ -41,7 +41,7 @@ function Modal() {
   return (
     <Portal selector="#body" close={closeModal}>
       <div
-        className="fixed  w-full inset-0 z-40  bg-black/50 md:flex md:justify-center md:items-center"
+        className="fixed w-full inset-0 z-40 bg-black/50"
         onClick={closeModal}
       >
         {/* <div onClick={closeModal} className=" w-full z-50"> */}
