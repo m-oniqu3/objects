@@ -1,34 +1,33 @@
 import useSWRInfinite from "swr/infinite";
-
 import { LoadingIcon } from "../assets/icons";
 import InfiniteScroll from "../components/InfiniteScroll";
-import StoryPreview from "../components/story/StoryPreview";
-import { getStoryPreviews } from "../services/stories/get-story-previews";
-import type { StoryPreview as SPreview } from "../types/story";
+import PromptOverview from "../components/prompt/PromptOverview";
+import getPrompts from "../services/prompts/get-prompts";
+import type { PromptOverview as POverview } from "../types/prompt";
 
 const limit = 15;
 
-async function storyPreviewsFetcher(key: [string, number]) {
+async function getPromptsFetcher(key: [string, number]) {
   const page = key[1];
 
-  const { data, error } = await getStoryPreviews(page, limit);
+  const { data, error } = await getPrompts(page, limit);
 
   if (error) throw error;
   return data;
 }
 
-function getKey(page: number, previousPageData: Array<SPreview> | null) {
-  if (page === 0) return ["published_stories", page];
+function getKey(page: number, previousPageData: Array<POverview> | null) {
+  if (page === 0) return ["prompts", page];
   if (previousPageData && previousPageData.length === 0) return null;
   if (previousPageData && previousPageData.length < limit) return null;
 
-  return ["published_stories", page];
+  return ["prompts", page];
 }
 
-function Stories() {
+function Prompts() {
   const { data, isLoading, isValidating, setSize } = useSWRInfinite(
     getKey,
-    storyPreviewsFetcher,
+    getPromptsFetcher,
   );
 
   // Check if we've reached the end
@@ -36,14 +35,14 @@ function Stories() {
   const isEmpty = lastPage?.length === 0;
   const isReachingEnd = (lastPage?.length ?? 0) < limit;
 
-  const stories = data?.flatMap((page) => page ?? []) ?? [];
+  const prompts = data?.flatMap((page) => page ?? []) ?? [];
 
-  function fetchMoreStories() {
+  function fetchMore() {
     setSize((prev) => prev + 1);
   }
 
-  const rendered_stories = stories.map((story) => {
-    return <StoryPreview key={story.id} story={story} />;
+  const rendered_prompts = prompts.map((prompt) => {
+    return <PromptOverview key={prompt.id} prompt={prompt} />;
   });
 
   if (isLoading) {
@@ -59,12 +58,12 @@ function Stories() {
       <InfiniteScroll
         isLoading={isLoading || isValidating}
         canStopFetching={isEmpty || isReachingEnd}
-        fetcher={fetchMoreStories}
+        fetcher={fetchMore}
       >
-        <section className="flex flex-col gap-8">{rendered_stories}</section>
+        <section className="flex flex-col ">{rendered_prompts}</section>
       </InfiniteScroll>
     </div>
   );
 }
 
-export default Stories;
+export default Prompts;

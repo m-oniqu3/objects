@@ -17,7 +17,7 @@ function AuthNavigation() {
   const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
-      <li key={link} className="text-xs uppercase tracking-wider font-medium">
+      <li key={link} className="text-xs uppercase tracking-wider ">
         <Link to={`/${link}`}>{link}</Link>
       </li>
     );
@@ -77,7 +77,7 @@ function AuthNavigation() {
             >
               Write
             </button>
-            <div className="bg-orange-700 rounded-full size-8" />
+            <div className="bg-yellow-800 rounded-full size-8" />
           </div>
         </div>
       </div>

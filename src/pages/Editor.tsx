@@ -10,7 +10,7 @@ import saveStory from "../services/stories/save-story";
 import type { Story, StoryType } from "../types/story";
 import { slugify } from "../utils/slug";
 
-function createSnippet(html: string, maxLength = 250): string {
+function createSnippet(html: string, maxLength = 400): string {
   const temp = document.createElement("div");
   temp.innerHTML = html;
 

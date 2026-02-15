@@ -1,12 +1,9 @@
+import type { Prompt } from "./prompt";
+
 export type AuthorPreview = {
   id: string;
   fullname: string;
   avatar_url: string | null;
-};
-
-export type PromptPreview = {
-  id: number;
-  title: string;
 };
 
 export type Genre = {
@@ -23,7 +20,7 @@ export type PublishedStory = {
   published_at: string;
   genres: Array<Genre> | null;
   author: AuthorPreview;
-  prompt: PromptPreview | null;
+  prompt: Prompt | null;
 };
 
 export type StoryPreview = {
@@ -35,7 +32,7 @@ export type StoryPreview = {
   published_at: string;
   genres: Array<Genre> | null;
   author: AuthorPreview;
-  prompt: PromptPreview | null;
+  prompt: Prompt | null;
 };
 
 export type StoryStatus = "draft" | "published";

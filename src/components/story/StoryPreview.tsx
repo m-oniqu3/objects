@@ -25,15 +25,18 @@ function StoryPreview(props: Props) {
 
   const story_link = `/s/${slug}/${id}`;
 
-  // const rendred_genres = genres
-  //   ? genres.map(({ id, name }) => {
-  //       return (
-  //         <li key={id} className="text-sm">
-  //           {name}
-  //         </li>
-  //       );
-  //     })
-  //   : null;
+  const rendred_genres = ["Fiction", "Young Adult", "Easy Read"].map(
+    (genre) => {
+      return (
+        <li
+          key={genre}
+          className="text-xs capitalize leading-4 tracking-wider text-neutral-800 bg-neutral-200 p-1 px-2 rounded-full"
+        >
+          {genre}
+        </li>
+      );
+    },
+  );
 
   const avatar =
     avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
@@ -69,6 +72,10 @@ function StoryPreview(props: Props) {
           </p>
         </div>
 
+        <p className="text-xs capitalize leading-4 tracking-wider text-neutral-800">
+          {["Fiction", "Young Adult", "Easy Read"].join(" \u2022 ")}
+        </p>
+
         {prompt && (
           <p className="text-xs capitalize leading-4 tracking-wider text-neutral-600">
             {prompt.title}
@@ -88,6 +95,8 @@ function StoryPreview(props: Props) {
         <p className="text-sm leading-normal tracking-wide text-neutral-800">
           {snippet}
         </p>
+
+        <ul className="flex items-center gap-2 ">{rendred_genres}</ul>
 
         <div className="flex items-center gap-6 pt-4">{rendered_stats}</div>
       </Link>

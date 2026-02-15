@@ -11,6 +11,7 @@ import SignIn from "./pages/auth/SignIn.tsx";
 import SignUp from "./pages/auth/SignUp.tsx";
 import Editor from "./pages/Editor.tsx";
 import Home from "./pages/Home.tsx";
+import Prompts from "./pages/Prompts.tsx";
 import Stories from "./pages/Stories.tsx";
 import Story from "./pages/Story.tsx";
 
@@ -28,6 +29,8 @@ createRoot(root).render(
                 <Route path="/" element={<Home />} />
                 <Route path="/stories" element={<Stories />} />
                 <Route path="/s/:slug/:id" element={<Story />} />
+
+                <Route path="/prompts" element={<Prompts />} />
               </Route>
 
               <Route path="/s/:id/edit" element={<Editor />} />
