@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useAuthContext } from "../../../contexts/auth/useAuth";
 import { useModalContext } from "../../../contexts/modal/useModal";
+import quoteStory from "../../../services/stories/quote-story";
 import { formatDate } from "../../../utils/validation/format-date";
 import Button from "../../Button";
 
@@ -9,14 +11,36 @@ function QuoteStory() {
     closeModal,
     state: { currentModal },
   } = useModalContext();
+  const { user } = useAuthContext();
 
   const isQuoteStoryModal = currentModal?.type === "quote_story";
-  const original_story = isQuoteStoryModal ? currentModal.payload?.story : null;
+  const story = isQuoteStoryModal ? currentModal.payload?.story : null;
 
   const [quote, setQuote] = useState("");
 
+  async function handleSubmit() {
+    if (!quote || !user || !story) return;
+
+    closeModal();
+
+    const { data, error } = await quoteStory({
+      user_id: user.id,
+      content: quote,
+      story_id: story.id,
+    });
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    if (data) {
+      console.log(data?.id);
+    }
+  }
+
   const rendered_original_story = (() => {
-    if (!original_story) return;
+    if (!story) return;
     const {
       title,
       subtitle,
@@ -25,7 +49,7 @@ function QuoteStory() {
 
       author: { fullname, avatar_url },
       prompt,
-    } = original_story;
+    } = story;
 
     const avatar =
       avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
@@ -80,7 +104,7 @@ function QuoteStory() {
   return (
     <div className="flex items-center justify-center h-screen w-screen sm:p-8">
       <div
-        className="bg-white w-full sm:max-w-xl flex flex-col sm:rounded-2xl relative max-h-screen sm:max-h-[calc(100vh-4rem)] overflow-hidden"
+        className="bg-white w-full sm:max-w-xl flex flex-col sm:rounded-2xl relative h-full sm:h-fit sm:min-h-fit sm:max-h-[calc(100vh-4rem)] overflow-hidden"
         onClick={stopPropagation}
       >
         <header className="sticky top-0 left-0 w-full bg-white grid grid-cols-[100px_auto_100px] place-items-center border-b border-neutral-200 py-4 px-6 shrink-0">
@@ -93,6 +117,7 @@ function QuoteStory() {
           <Button
             className="w-fit ml-auto  bg-neutral-800 text-white disabled:opacity-50"
             disabled={!quote.trim()}
+            onClick={handleSubmit}
           >
             Post
           </Button>

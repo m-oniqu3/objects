@@ -58,10 +58,10 @@ function Story() {
             </p>
           )}
 
-          <div className="">* * *</div>
+          <div className="text-neutral-400">* * *</div>
 
           <div className="flex flex-col gap-3">
-            <h1 className="text-2xl font-semibold leading-5 tracking-wider text-neutral-800">
+            <h1 className="text-2xl sm:text-4xl font-semibold leading-snug tracking-wider text-neutral-800">
               {title}
             </h1>
             {subtitle && (
@@ -90,7 +90,9 @@ function Story() {
             </div>
           </div>
         </header>
-        <div className="">* * *</div>
+
+        <div className="text-neutral-400">* * *</div>
+
         <p className="text-sm leading-8 tracking-wider text-neutral-800">
           {parse(body)}
         </p>

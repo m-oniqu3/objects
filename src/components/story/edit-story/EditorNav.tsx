@@ -33,8 +33,10 @@ function EditorNav(props: Props) {
         console.log(story.id);
         console.log(type === "draft" ? "draft saved!" : "story published");
 
-        // todo: navigate to the new story
-        navigate(`/s/${story.slug}/${story.id}`);
+        if (type === "publish") {
+          // todo: navigate to the new story
+          navigate(`/s/${story.slug}/${story.id}`);
+        }
       }
     } catch (err) {
       console.error(err);
