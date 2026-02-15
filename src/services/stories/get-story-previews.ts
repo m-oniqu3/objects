@@ -17,7 +17,7 @@ export async function getStoryPreviews(
       .from("stories")
       .select(
         `
-  id,
+      id,
       title,
       subtitle,
       snippet,

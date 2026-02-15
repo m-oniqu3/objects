@@ -47,9 +47,9 @@ function AuthNavigation() {
   }
 
   return (
-    <nav className="grid place-items-center h-16 bg-white/50 backdrop-blur-2xl sticky top-0 left-0 w-full">
+    <nav className="grid place-items-center h-20 bg-white sticky top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-center">
-        <div className="flex items-center justify-between gap-8 w-full md:hidden">
+        <div className="flex items-center justify-between w-full md:hidden">
           <div className="mx-auto">
             <Logo />
           </div>

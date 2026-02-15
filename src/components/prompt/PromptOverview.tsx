@@ -14,10 +14,10 @@ function PromptOverview(props: Props) {
 
   return (
     <Link
-      to={`${prompt}/${id}`}
+      to={`/p/${id}`}
       className="flex flex-col gap-8 p-8 border-b border-zinc-100  hover:bg-gray-50"
     >
-      <h1 className="font-medium leading-8">{title}</h1>
+      <h1 className=" leading-8">{title}</h1>
 
       <div className="flex items-center justify-between  gap-4">
         <p className="text-sm text-neutral-600 flex items-center gap-2">
@@ -28,7 +28,7 @@ function PromptOverview(props: Props) {
           <span className="lowercase">{formatDate(created_at)}</span>
         </p>
 
-        <Button className="bg-yellow-800  text-white text-sm capitalize">
+        <Button className="bg-neutral-300  text-neutal-800 text-sm capitalize">
           write
         </Button>
       </div>

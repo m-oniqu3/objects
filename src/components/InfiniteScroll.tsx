@@ -52,8 +52,8 @@ function InfiniteScroll({
 
       {/* Sentinel element that triggers loading */}
       {!canStopFetching && (
-        <div ref={observerTarget} className="py-4 grid place-items-center">
-          {isLoading && <LoadingIcon className="size-5" />}
+        <div ref={observerTarget} className="h-20 grid place-items-center">
+          {isLoading && <LoadingIcon className="size-6 animate-spin" />}
         </div>
       )}
 

@@ -20,6 +20,7 @@ async function getPrompts(page: number, limit = 20): GetPromptsResponse {
         `,
       )
       .eq("is_archived", false)
+
       .order("created_at", { ascending: false })
       .range(from, to);
 
@@ -38,7 +39,10 @@ async function getPrompts(page: number, limit = 20): GetPromptsResponse {
 
     return {
       data: null,
-      error: error instanceof Error ? error.message : String(error),
+      error:
+        error instanceof Error
+          ? error.message
+          : "An unknown error occured while fetching prompts",
     };
   }
 }

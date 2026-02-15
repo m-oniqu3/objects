@@ -52,7 +52,7 @@ function StoryPreview(props: Props) {
   });
 
   return (
-    <article className="border-b border-zinc-100 p-8 hover:bg-gray-50">
+    <article className="border-b border-zinc-100 p-8 hover:bg-neutral-50">
       <Link to={story_link} className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <figure>
@@ -86,7 +86,7 @@ function StoryPreview(props: Props) {
           <h1 className="text-lg font-medium">{title}</h1>
 
           {subtitle && (
-            <p className="text-xs capitalize leading-4 tracking-wider text-neutral-800 ">
+            <p className="text-xs capitalize leading-4 tracking-wider text-neutral-800 font-medium">
               {subtitle}
             </p>
           )}
