@@ -38,7 +38,7 @@
     }
 
     .page-wrapper {
-        @apply max-w-xl mx-auto
+        @apply max-w-2xl mx-auto
     }
 }
 

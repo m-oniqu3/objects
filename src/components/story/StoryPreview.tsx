@@ -52,8 +52,8 @@ function StoryPreview(props: Props) {
   });
 
   return (
-    <article className="border-b border-zinc-100 pb-4">
-      <Link to={story_link} className="flex flex-col gap-3">
+    <article className="border-b border-zinc-100 p-8 hover:bg-gray-50">
+      <Link to={story_link} className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <figure>
             <img

@@ -61,7 +61,7 @@ function Stories() {
         canStopFetching={isEmpty || isReachingEnd}
         fetcher={fetchMoreStories}
       >
-        <section className="flex flex-col gap-8">{rendered_stories}</section>
+        <section className="flex flex-col">{rendered_stories}</section>
       </InfiniteScroll>
     </div>
   );
