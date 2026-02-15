@@ -30,7 +30,7 @@ function StoryPreview(props: Props) {
       return (
         <li
           key={genre}
-          className="text-xs capitalize leading-4 tracking-wider text-neutral-800 bg-neutral-200 p-1 px-2 rounded-full"
+          className="text-sm capitalize leading-4 tracking-wider text-neutral-800 bg-neutral-200 p-2 px-2.5 rounded-full"
         >
           {genre}
         </li>
@@ -72,12 +72,12 @@ function StoryPreview(props: Props) {
           </p>
         </div>
 
-        <p className="text-xs capitalize leading-4 tracking-wider text-neutral-800">
+        <p className="text-sm capitalize leading-4 tracking-wider text-neutral-800">
           {["Fiction", "Young Adult", "Easy Read"].join(" \u2022 ")}
         </p>
 
         {prompt && (
-          <p className="text-xs capitalize leading-4 tracking-wider text-neutral-600">
+          <p className="text-sm capitalize leading-normal tracking-wider text-neutral-600">
             {prompt.title}
           </p>
         )}
@@ -86,13 +86,13 @@ function StoryPreview(props: Props) {
           <h1 className="text-lg font-medium">{title}</h1>
 
           {subtitle && (
-            <p className="text-xs capitalize leading-normal tracking-wider text-neutral-600 ">
+            <p className="text-sm capitalize leading-normal tracking-wider text-neutral-600 ">
               {subtitle}
             </p>
           )}
         </div>
 
-        <p className="text-[13px] leading-normal tracking-wider text-neutral-800">
+        <p className="text-sm leading-6 tracking-wider text-neutral-800">
           {snippet}
         </p>
 

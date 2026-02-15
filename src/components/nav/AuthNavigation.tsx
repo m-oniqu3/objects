@@ -17,7 +17,7 @@ function AuthNavigation() {
   const links = ["stories", "prompts", "threads"];
   const rendered_links = links.map((link) => {
     return (
-      <li key={link} className="text-xs uppercase tracking-wider font-medium">
+      <li key={link} className="text-sm capitalize tracking-wider ">
         <Link to={`/${link}`}>{link}</Link>
       </li>
     );
@@ -47,7 +47,7 @@ function AuthNavigation() {
   }
 
   return (
-    <nav className="grid place-items-center h-20 bg-white sticky top-0 left-0 w-full">
+    <nav className="grid place-items-center h-20 bg-white  top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-center">
         <div className="flex items-center justify-between w-full md:hidden">
           <div className="mx-auto">
@@ -60,22 +60,22 @@ function AuthNavigation() {
         </div>
 
         <div className="hidden md:flex justify-between items-center gap-8 w-full max-w-2xl ">
-          <ul className="hidden md:flex items-center gap-4">
+          <ul className="hidden md:flex items-center gap-6">
             {rendered_links}
           </ul>
 
           <Logo />
 
-          <div className="flex justify-evenly items-center gap-4">
+          <div className="flex justify-evenly items-center gap-6">
             <button
               onClick={handleModal}
-              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
+              className="text-sm capitalize tracking-wide cursor-pointer"
             >
               explore
             </button>
             <button
               onClick={handleModal}
-              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
+              className="text-sm capitalize tracking-wide cursor-pointer"
             >
               Create
             </button>
@@ -83,11 +83,18 @@ function AuthNavigation() {
             <button
               onClick={handleNewStory}
               disabled={isCreatingDraft}
-              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
+              className="text-sm capitalize tracking-wide cursor-pointer"
             >
               Write
             </button>
-            <div className="bg-neutral-300 rounded-full size-8" />
+
+            <figure>
+              <img
+                src="https://i.pinimg.com/736x/57/47/0e/57470e092368f03796bb0d34f2527478.jpg"
+                alt={"Avatar"}
+                className="object-cover size-8 rounded-full"
+              />
+            </figure>
           </div>
         </div>
       </div>

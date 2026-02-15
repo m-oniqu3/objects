@@ -51,19 +51,21 @@ function Story() {
   return (
     <section>
       <article className="flex flex-col gap-12 max-w-2xl mx-auto">
-        <header className="flex flex-col gap-8 border-b border-neutral-100 pb-8">
+        <header className="flex flex-col gap-8  border-neutral-100 pb-8">
           {prompt && (
-            <p className="text-xs uppercase leading-5 tracking-wider text-neutral-800">
+            <p className="text-sm capitalize leading-5 tracking-wider text-neutral-800">
               {prompt.title}
             </p>
           )}
+
+          <div className="">* * *</div>
 
           <div className="flex flex-col gap-3">
             <h1 className="text-2xl font-semibold leading-5 tracking-wider text-neutral-800">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-xs  leading-5 tracking-wider text-neutral-800 uppercase">
+              <p className="text-sm  leading-5 tracking-wider text-neutral-800 capitalize">
                 {subtitle}
               </p>
             )}
@@ -88,7 +90,7 @@ function Story() {
             </div>
           </div>
         </header>
-
+        <div className="">* * *</div>
         <p className="text-sm leading-8 tracking-wider text-neutral-800">
           {parse(body)}
         </p>
