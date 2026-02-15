@@ -71,4 +71,5 @@ export type StoryRepostPreview = {
   snippet: string;
   published_at: string;
   author: AuthorPreview;
+  prompt: Prompt | null;
 };

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
-import { useModal } from "../../../contexts/modal/useModal";
-import { ModalTypes } from "../../../types/modal";
+import { useModalContext } from "../../../contexts/modal/useModal";
 import type { StoryType } from "../../../types/story";
 import Button from "../../Button";
 import Logo from "../../Logo";
@@ -17,11 +16,11 @@ function EditorNav(props: Props) {
   const { saveStory } = props;
 
   const [isSavingStory, setIsSavingStory] = useState<StoryType | null>(null);
-  const { openModal } = useModal();
+  const { openModal } = useModalContext();
   const navigate = useNavigate();
 
   function handlePromptModal() {
-    openModal(ModalTypes.SELECT_PROMPT_MODAL);
+    openModal({ type: "select_prompt" });
   }
 
   async function handleSaveStory(type: StoryType) {

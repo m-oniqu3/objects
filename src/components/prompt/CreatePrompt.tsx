@@ -1,11 +1,11 @@
 import { useState, type ChangeEvent } from "react";
 import { useAuthContext } from "../../contexts/auth/useAuth";
-import { useModal } from "../../contexts/modal/useModal";
+import { useModalContext } from "../../contexts/modal/useModal";
 import { createPrompt } from "../../services/prompts/create-prompt";
 import Button from "../Button";
 
 function CreatePrompt() {
-  const { closeModal } = useModal();
+  const { closeModal } = useModalContext();
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);

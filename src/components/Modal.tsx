@@ -3,7 +3,7 @@ import { useModalContext } from "../contexts/modal/useModal";
 import Portal from "./Portal";
 import CreatePrompt from "./prompt/CreatePrompt";
 import SelectPrompt from "./prompt/SelectPrompt";
-import RepostStory from "./story/repost-story/RepostStory";
+import RepostStory from "./story/repost-story/QuoteStory";
 import RepostStoryOptions from "./story/repost-story/RepostStoryOptions";
 
 function Modal() {
@@ -16,7 +16,7 @@ function Modal() {
   let ModalContent: ReactNode = null;
 
   (() => {
-    switch (currentModal) {
+    switch (currentModal.type) {
       case "create_prompt":
         ModalContent = <CreatePrompt />;
         return;
@@ -29,7 +29,7 @@ function Modal() {
         ModalContent = <RepostStoryOptions />;
         return;
 
-      case "repost_story":
+      case "quote_story":
         ModalContent = <RepostStory />;
         return;
 

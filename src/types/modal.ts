@@ -4,18 +4,27 @@ export type ModalType =
   | "create_prompt"
   | "select_prompt"
   | "repost_story_options"
-  | "repost_story";
+  | "quote_story";
 
 type ModalState<K extends ModalType, P = null> = {
   type: K;
   payload?: P;
 };
 
-type RepostModal = ModalState<
-  "repost_story",
-  {
-    story: StoryRepostPreview;
-  }
+type CreatePromptModal = ModalState<"create_prompt">;
+
+type SelectPromptModal = ModalState<"select_prompt">;
+
+type RepostStoryOptionsModal = ModalState<
+  "repost_story_options",
+  { story: StoryRepostPreview }
 >;
 
-export type Modal = ModalType | RepostModal | null;
+type QuoteStoryModal = ModalState<"quote_story", { story: StoryRepostPreview }>;
+
+export type Modal =
+  | CreatePromptModal
+  | SelectPromptModal
+  | RepostStoryOptionsModal
+  | QuoteStoryModal
+  | null;

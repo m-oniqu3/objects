@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 import { CommentIcon, HeartOutlineIcon, RepostIcon } from "../../assets/icons";
-import type { StoryPreview as SPreview } from "../../types/story";
+import { useModalContext } from "../../contexts/modal/useModal";
+import type {
+  StoryPreview as SPreview,
+  StoryRepostPreview,
+} from "../../types/story";
 import { formatDate } from "../../utils/validation/format-date";
 import Metric from "../Metric";
 
@@ -17,38 +21,53 @@ function StoryPreview(props: Props) {
       snippet,
       slug,
       published_at,
-
+      author,
       author: { fullname, avatar_url },
       prompt,
     },
   } = props;
 
-  const story_link = `/s/${slug}/${id}`;
+  const { openModal } = useModalContext();
 
-  const rendred_genres = ["Fiction", "Young Adult", "Easy Read"].map(
-    (genre) => {
-      return (
-        <li
-          key={genre}
-          className="text-sm capitalize leading-4 tracking-wider text-neutral-800 bg-neutral-200 p-2 px-2.5 rounded-full"
-        >
-          {genre}
-        </li>
-      );
-    },
-  );
+  const story_link = `/s/${slug}/${id}`;
 
   const avatar =
     avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
 
+  // metrics
+
+  function handleRepostStory() {
+    const story: StoryRepostPreview = {
+      id,
+      title,
+      subtitle,
+      snippet,
+      published_at,
+      author,
+      prompt,
+    };
+
+    openModal({
+      type: "repost_story_options",
+      payload: { story },
+    });
+  }
+
   const story_stats = [
-    { icon: HeartOutlineIcon, value: 0 },
-    { icon: CommentIcon, value: 0 },
-    { icon: RepostIcon, value: 0 },
+    { icon: HeartOutlineIcon, value: 0, onClick: () => {} },
+    { icon: CommentIcon, value: 0, onClick: () => {} },
+    { icon: RepostIcon, value: 0, onClick: handleRepostStory },
   ];
 
   const rendered_stats = story_stats.map((stat, i) => {
-    return <Metric key={i} icon={stat.icon} value={stat.value} />;
+    return (
+      <Metric
+        key={i}
+        icon={stat.icon}
+        value={stat.value}
+        onClick={stat.onClick}
+      />
+    );
   });
 
   return (

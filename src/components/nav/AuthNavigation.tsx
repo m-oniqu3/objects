@@ -2,15 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { MenuIcon } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/auth/useAuth";
-import { useModal } from "../../contexts/modal/useModal";
+import { useModalContext } from "../../contexts/modal/useModal";
 import { createDraft } from "../../services/stories/create-draft";
-import { ModalTypes } from "../../types/modal";
 import Logo from "../Logo";
 
 function AuthNavigation() {
   const navigate = useNavigate();
 
-  const { openModal } = useModal();
+  const { openModal } = useModalContext();
   const { user } = useAuthContext();
   const [isCreatingDraft, setIsCreatingDraft] = useState(false);
 
@@ -24,7 +23,7 @@ function AuthNavigation() {
   });
 
   function handleModal() {
-    openModal(ModalTypes.CREATE_PROMPT_MODAL);
+    openModal({ type: "create_prompt" });
   }
 
   async function handleNewStory() {
