@@ -47,25 +47,35 @@ function AuthNavigation() {
   }
 
   return (
-    <nav className="grid place-items-center h-16 bg-white border-b border-gray-100 sticky top-0 left-0 w-full">
-      <div className="wrapper flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Logo />
+    <nav className="grid place-items-center h-20 bg-white sticky top-0 left-0 w-full">
+      <div className="wrapper flex items-center justify-center">
+        <div className="flex items-center justify-between w-full md:hidden">
+          <div className="mx-auto">
+            <Logo />
+          </div>
 
+          <button className="grid place-items-center md:hidden cursor-pointer ">
+            <MenuIcon className="size-5 " />
+          </button>
+        </div>
+
+        <div className="hidden md:flex justify-between items-center gap-8 w-full max-w-2xl ">
           <ul className="hidden md:flex items-center gap-4">
             {rendered_links}
           </ul>
-        </div>
 
-        <div className="flex items-center gap-4">
-          <button className="grid place-items-center md:hidden cursor-pointer ">
-            <MenuIcon className="size-4.5 " />
-          </button>
+          <Logo />
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="flex justify-evenly items-center gap-4">
             <button
               onClick={handleModal}
-              className="text-xs uppercase tracking-wide cursor-pointer"
+              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
+            >
+              explore
+            </button>
+            <button
+              onClick={handleModal}
+              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
             >
               Create
             </button>
@@ -73,11 +83,11 @@ function AuthNavigation() {
             <button
               onClick={handleNewStory}
               disabled={isCreatingDraft}
-              className="text-xs uppercase tracking-wide cursor-pointer"
+              className="text-xs uppercase tracking-wide cursor-pointer font-medium"
             >
               Write
             </button>
-            <div className="bg-orange-700 rounded-full size-8" />
+            <div className="bg-neutral-300 rounded-full size-8" />
           </div>
         </div>
       </div>
