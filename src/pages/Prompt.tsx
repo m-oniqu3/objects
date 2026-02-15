@@ -80,7 +80,7 @@ function Prompt() {
   });
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper flex flex-col gap-8">
       <div className="flex flex-col gap-4 p-8 justify-center items-center text-center">
         <h1 className="font-medium text-xl leading-8">"{title}"</h1>
 
