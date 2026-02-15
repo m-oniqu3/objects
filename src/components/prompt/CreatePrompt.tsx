@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type SubmitEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useAuthContext } from "../../contexts/auth/useAuth";
 import { useModal } from "../../contexts/modal/useModal";
 import { createPrompt } from "../../services/prompts/create-prompt";
@@ -18,9 +18,8 @@ function CreatePrompt() {
     setTitle(e.target.value);
   }
 
-  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit() {
     try {
-      e.preventDefault();
       setIsLoading(true);
 
       if (!title.trim() || !user?.id) return;
@@ -39,46 +38,36 @@ function CreatePrompt() {
   }
 
   return (
-    <div className="panel">
-      <form onSubmit={handleSubmit}>
-        <header>
-          <h2 className="text-lg font-semibold ">Create a prompt</h2>
-
-          <p className="text-sm text-gray-500 ">
-            Prompts are open-ended ideas for short reads.
-          </p>
+    <div className="w-full mx-auto md:rounded-2xl bg-white h-screen  max-w-125 md:max-h-50 md:border border-neutral-200 overflow-hidden">
+      <form className="flex flex-col md:h-full">
+        <header className="flex items-center  p-4 md:border-b border-neutral-200">
+          <button className="text-sm" onClick={closeModal}>
+            Cancel
+          </button>
+          <h2 className="text-lg font-semibold mx-auto ">Create a prompt</h2>
 
           {error && <p className="input-error">{error}</p>}
         </header>
 
-        <div>
+        <div className="p-4 flex flex-col gap-4 h-full">
           <input
             type="text"
             placeholder="Write something that makes people think"
             value={title}
             onChange={handleInputChange}
             maxLength={140}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus: focus:ring-black"
+            className="w-full  text-sm outline-none "
             autoFocus
           />
 
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              onClick={closeModal}
-              className=" border border-gray-300"
-            >
-              Cancel
-            </Button>
-
-            <Button
-              type="submit"
-              className=" bg-black text-white disabled:opacity-50"
-              disabled={!title.trim() || isLoading}
-            >
-              Publish
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            className="w-fit ml-auto mt-auto  bg-neutral-800 text-white disabled:opacity-50"
+            disabled={!title.trim() || isLoading}
+            onClick={handleSubmit}
+          >
+            Create
+          </Button>
         </div>
       </form>
     </div>

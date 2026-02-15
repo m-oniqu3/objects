@@ -63,3 +63,12 @@ export type PromptStories = {
     author: AuthorPreview;
   }>;
 };
+
+export type StoryRepostPreview = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  snippet: string;
+  published_at: string;
+  author: AuthorPreview;
+};

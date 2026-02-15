@@ -1,9 +1,21 @@
-export enum ModalTypes {
-  CREATE_PROMPT_MODAL = "CREATE_PROMPT_MODAL",
-  SELECT_PROMPT_MODAL = "SELECT_PROMPT_MODAL",
-}
+import type { StoryRepostPreview } from "./story";
 
-export type Modal =
-  | ModalTypes.CREATE_PROMPT_MODAL
-  | ModalTypes.SELECT_PROMPT_MODAL
-  | null;
+export type ModalType =
+  | "create_prompt"
+  | "select_prompt"
+  | "repost_story_options"
+  | "repost_story";
+
+type ModalState<K extends ModalType, P = null> = {
+  type: K;
+  payload?: P;
+};
+
+type RepostModal = ModalState<
+  "repost_story",
+  {
+    story: StoryRepostPreview;
+  }
+>;
+
+export type Modal = ModalType | RepostModal | null;
