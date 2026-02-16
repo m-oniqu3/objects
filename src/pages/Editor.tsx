@@ -9,20 +9,7 @@ import { usePromptContext } from "../contexts/prompt/usePrompt";
 import saveStory from "../services/stories/save-story";
 import type { Story, StoryType } from "../types/story";
 import { slugify } from "../utils/slug";
-
-function createSnippet(html: string, maxLength = 400): string {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-
-  const text = html
-    .replace(/<\/(p|div)>/gi, "$& ") // add space after closing p/div
-    .replace(/<br\s*\/?>/gi, " ") // replace <br> with space
-    .replace(/<[^>]+>/g, ""); // remove other tags
-
-  return (
-    text.slice(0, maxLength).trim() + (text.length > maxLength ? "..." : "")
-  );
-}
+import { createSnippet } from "../utils/story/create-story-snippet";
 
 function Editor() {
   const { prompt } = usePromptContext();
@@ -30,6 +17,9 @@ function Editor() {
 
   const promptID = prompt?.id ?? null;
   const userID = user?.id;
+
+  //if the user & the author aren't the same then throw error, (redirect to /)
+  // if the story status is published then dont show dave draft button
 
   //get story ID -  // ['s', id, 'edit']
   const { pathname } = useLocation();

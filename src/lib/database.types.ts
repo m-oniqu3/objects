@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      drafts: {
+        Row: {
+          author_id: string
+          body: string | null
+          created_at: string
+          id: number
+          prompt_id: number | null
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string
+          body?: string | null
+          created_at?: string
+          id?: number
+          prompt_id?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          created_at?: string
+          id?: number
+          prompt_id?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drafts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "drafts_prompt_id_fkey"
+            columns: ["prompt_id"]
+            isOneToOne: false
+            referencedRelation: "prompts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       genres: {
         Row: {
           id: number

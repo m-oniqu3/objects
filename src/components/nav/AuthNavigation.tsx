@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { MenuIcon } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/auth/useAuth";
 import { useModalContext } from "../../contexts/modal/useModal";
-import { createDraft } from "../../services/stories/create-draft";
+import { createDraft } from "../../services/drafts/create-draft";
+import Button from "../Button";
 import Logo from "../Logo";
 
 function AuthNavigation() {
@@ -26,7 +27,7 @@ function AuthNavigation() {
     openModal({ type: "create_prompt" });
   }
 
-  async function handleNewStory() {
+  async function handleCreateDraft() {
     try {
       setIsCreatingDraft(true);
       if (!user) return;
@@ -37,7 +38,7 @@ function AuthNavigation() {
 
       if (!data) return;
 
-      navigate(`/s/${data.id}/edit`);
+      navigate(`/draft/${data.id}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -59,19 +60,13 @@ function AuthNavigation() {
         </div>
 
         <div className="hidden md:flex justify-between items-center gap-8 w-full max-w-2xl ">
-          <ul className="hidden md:flex items-center gap-6">
+          <ul className="hidden md:flex items-center gap-4">
+            <Logo />
+
             {rendered_links}
           </ul>
 
-          <Logo />
-
-          <div className="flex justify-evenly items-center gap-6">
-            <button
-              onClick={handleModal}
-              className="text-sm capitalize tracking-wide cursor-pointer"
-            >
-              explore
-            </button>
+          <div className="flex  items-center gap-4">
             <button
               onClick={handleModal}
               className="text-sm capitalize tracking-wide cursor-pointer"
@@ -79,13 +74,13 @@ function AuthNavigation() {
               Create
             </button>
 
-            <button
-              onClick={handleNewStory}
+            <Button
+              onClick={handleCreateDraft}
               disabled={isCreatingDraft}
-              className="text-sm capitalize tracking-wide cursor-pointer"
+              className=" capitalize tracking-wider text-white bg-yellow-700"
             >
-              Write
-            </button>
+              {!isCreatingDraft ? "Write" : "Creating..."}
+            </Button>
 
             <figure>
               <img

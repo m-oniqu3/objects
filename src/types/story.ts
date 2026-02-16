@@ -73,3 +73,21 @@ export type StoryRepostPreview = {
   author: AuthorPreview;
   prompt: Prompt | null;
 };
+
+export type Draft = {
+  id: number;
+  title: string | null;
+  subtitle: string | null;
+  author: AuthorPreview;
+  prompt: Prompt | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type DraftStory = {
+  id: number;
+  title: string | null;
+  subtitle: string | null;
+  author: AuthorPreview;
+  prompt: Prompt | null;
+};
