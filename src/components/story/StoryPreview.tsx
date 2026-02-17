@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 import { CommentIcon, HeartOutlineIcon, RepostIcon } from "../../assets/icons";
-import type { StoryPreview as SPreview } from "../../types/story";
+import { useModalContext } from "../../contexts/modal/useModal";
+import type {
+  StoryPreview as SPreview,
+  StoryRepostPreview,
+} from "../../types/story";
 import { formatDate } from "../../utils/validation/format-date";
 import Metric from "../Metric";
 
@@ -16,43 +20,58 @@ function StoryPreview(props: Props) {
       subtitle,
       snippet,
       slug,
-      published_at,
-
+      updated_at,
+      author,
       author: { fullname, avatar_url },
       prompt,
     },
   } = props;
 
-  const story_link = `/s/${slug}/${id}`;
+  const { openModal } = useModalContext();
 
-  const rendred_genres = ["Fiction", "Young Adult", "Easy Read"].map(
-    (genre) => {
-      return (
-        <li
-          key={genre}
-          className="text-sm capitalize leading-4 tracking-wider text-neutral-800 bg-neutral-200 p-2 px-2.5 rounded-full"
-        >
-          {genre}
-        </li>
-      );
-    },
-  );
+  const story_link = `/s/${slug}-${id}`;
 
   const avatar =
     avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
 
+  // metrics
+
+  function handleRepostStory() {
+    const story: StoryRepostPreview = {
+      id,
+      title,
+      subtitle,
+      snippet,
+      updated_at,
+      author,
+      prompt,
+    };
+
+    openModal({
+      type: "repost_story_options",
+      payload: { story },
+    });
+  }
+
   const story_stats = [
-    { icon: HeartOutlineIcon, value: 0 },
-    { icon: CommentIcon, value: 0 },
-    { icon: RepostIcon, value: 0 },
+    { icon: HeartOutlineIcon, value: 0, onClick: () => {} },
+    { icon: CommentIcon, value: 0, onClick: () => {} },
+    { icon: RepostIcon, value: 0, onClick: handleRepostStory },
   ];
 
   const rendered_stats = story_stats.map((stat, i) => {
-    return <Metric key={i} icon={stat.icon} value={stat.value} />;
+    return (
+      <Metric
+        key={i}
+        icon={stat.icon}
+        value={stat.value}
+        onClick={stat.onClick}
+      />
+    );
   });
 
   return (
-    <article className="border-b border-zinc-100 p-8 hover:bg-neutral-50">
+    <article className="border-b border-zinc-100 p-8 ">
       <Link to={story_link} className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <figure>
@@ -67,17 +86,13 @@ function StoryPreview(props: Props) {
             <span>{fullname}</span>
             &bull;
             <span className="lowercase text-neutral-500">
-              {formatDate(published_at)}
+              {formatDate(updated_at)}
             </span>
           </p>
         </div>
 
-        <p className="text-sm capitalize leading-4 tracking-wider text-neutral-800">
-          {["Fiction", "Young Adult", "Easy Read"].join(" \u2022 ")}
-        </p>
-
         {prompt && (
-          <p className="text-sm capitalize leading-normal tracking-wider text-neutral-600">
+          <p className="text-sm capitalize leading-5 tracking-wider text-neutral-600">
             {prompt.title}
           </p>
         )}
@@ -86,17 +101,19 @@ function StoryPreview(props: Props) {
           <h1 className="text-lg font-medium">{title}</h1>
 
           {subtitle && (
-            <p className="text-sm capitalize leading-normal tracking-wider text-neutral-600 ">
+            <p className="text-sm font-medium capitalize leading-5 tracking-wide text-neutral-600 ">
               {subtitle}
             </p>
           )}
         </div>
 
-        <p className="text-sm leading-6 tracking-wider text-neutral-800">
-          {snippet}
+        <p className=" text-sm  tracking-wide text-neutral-800">{snippet}</p>
+
+        <p className="text-sm pt-1 capitalize leading-4 tracking-wide text-neutral-600">
+          {["Fiction", "Young Adult", "Romance"].join(", ")}.
         </p>
 
-        <ul className="flex items-center gap-2 ">{rendred_genres}</ul>
+        {/* <ul className="flex items-center gap-2 ">{rendred_genres}</ul> */}
 
         <div className="flex items-center gap-6 pt-4">{rendered_stats}</div>
       </Link>

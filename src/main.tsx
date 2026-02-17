@@ -29,13 +29,13 @@ createRoot(root).render(
               <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/stories" element={<Stories />} />
-                <Route path="/s/:slug/:id" element={<Story />} />
+                <Route path="/s/:slug" element={<Story />} />
 
                 <Route path="/prompts" element={<Prompts />} />
                 <Route path="/p/:id" element={<Prompt />} />
               </Route>
 
-              <Route path="/s/:id/edit" element={<Editor />} />
+              <Route path="/edit/:id" element={<Editor />} />
 
               <Route path="/sign_in" element={<SignIn />} />
               <Route path="/sign_up" element={<SignUp />} />

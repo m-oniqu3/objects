@@ -1,49 +1,66 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ChevronLeftIcon, HorizontalEllipsisIcon } from "../../../assets/icons";
-import { useModal } from "../../../contexts/modal/useModal";
-import { ModalTypes } from "../../../types/modal";
-import type { StoryType } from "../../../types/story";
+import { useModalContext } from "../../../contexts/modal/useModal";
+import type { DraftStoryType } from "../../../types/story";
 import Button from "../../Button";
 import Logo from "../../Logo";
 
 type Props = {
-  saveStory: (
-    type: StoryType,
-  ) => Promise<{ id: string; slug: string } | null | undefined>;
+  hasDraftContentChanged: boolean;
+  draft: {
+    isDraftPublishable: boolean;
+    type: DraftStoryType | null;
+  };
+  saveDraft: () => Promise<void>;
+  saveStory: () => Promise<
+    | {
+        id: number;
+        slug: string;
+      }
+    | null
+    | undefined
+  >;
 };
 
 function EditorNav(props: Props) {
-  const { saveStory } = props;
+  const { saveStory, saveDraft, draft, hasDraftContentChanged } = props;
 
-  const [isSavingStory, setIsSavingStory] = useState<StoryType | null>(null);
-  const { openModal } = useModal();
+  const [isSavingContent, setIsSavingContent] = useState<DraftStoryType | null>(
+    null,
+  );
+  const { openModal } = useModalContext();
   const navigate = useNavigate();
 
   function handlePromptModal() {
-    openModal(ModalTypes.SELECT_PROMPT_MODAL);
+    openModal({ type: "select_prompt" });
   }
 
-  async function handleSaveStory(type: StoryType) {
+  async function handleSaveStory() {
     try {
-      setIsSavingStory(type);
+      setIsSavingContent("story");
 
-      const story = await saveStory(type);
-
+      const story = await saveStory();
       if (story) {
-        console.log(story.id);
-        console.log(type === "draft" ? "draft saved!" : "story published");
-
-        // todo: navigate to the new story
-        navigate(`/s/${story.slug}/${story.id}`);
+        navigate(`/s/${story.slug}-${story.id}`);
       }
     } catch (err) {
       console.error(err);
     } finally {
-      setIsSavingStory(null);
+      setIsSavingContent(null);
     }
   }
 
+  async function handleSaveDraft() {
+    try {
+      setIsSavingContent("draft");
+      await saveDraft();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSavingContent(null);
+    }
+  }
   return (
     <nav className="h-14 ">
       <div className="wrapper h-full flex items-center justify-between ">
@@ -63,12 +80,12 @@ function EditorNav(props: Props) {
           </Button>
 
           <Button
-            disabled={!!isSavingStory}
-            onClick={() => handleSaveStory("draft")}
-            className="hidden md:flex gap-1 text-xs uppercase tracking-wide"
+            disabled={!!isSavingContent || !hasDraftContentChanged}
+            onClick={handleSaveDraft}
+            className="hidden md:flex gap-1 text-xs uppercase tracking-wide disabled:opacity-50"
           >
             <span className="">
-              {isSavingStory === "draft" ? "saving..." : "save draft"}
+              {isSavingContent === "draft" ? "saving..." : "save draft"}
             </span>
           </Button>
 
@@ -80,11 +97,15 @@ function EditorNav(props: Props) {
           </Button>
 
           <Button
-            disabled={!!isSavingStory}
-            onClick={() => handleSaveStory("publish")}
-            className=" text-xs uppercase tracking-wide"
+            disabled={!!isSavingContent || !hasDraftContentChanged}
+            onClick={handleSaveStory}
+            className=" text-xs uppercase tracking-wide disabled:opacity-50"
           >
-            {isSavingStory === "publish" ? "saving..." : "publish"}
+            {isSavingContent === "story"
+              ? "saving..."
+              : draft.type === "story"
+                ? "save and publish"
+                : "publish"}
           </Button>
           <div className="hidden bg-orange-700 rounded-full size-8" />
         </div>

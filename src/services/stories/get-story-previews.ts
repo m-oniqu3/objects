@@ -23,7 +23,7 @@ export async function getStoryPreviews(
       snippet,
       slug,
       body,
-      published_at,
+      updated_at,
       stories_genres (
         genres (id, name)
       ),
@@ -31,8 +31,8 @@ export async function getStoryPreviews(
       prompt:prompts(id, title)
         `,
       )
-      .order("published_at", { ascending: false })
-      .eq("status", "published")
+      .order("updated_at", { ascending: false })
+
       .range(from, to);
 
     if (error) throw error;
@@ -43,8 +43,7 @@ export async function getStoryPreviews(
       return {
         ...story,
         snippet: story.snippet!,
-        genres: stories_genres.map((sg) => sg.genres),
-        published_at: story.published_at!,
+        genres: stories_genres?.map((sg) => sg.genres),
       };
     });
 

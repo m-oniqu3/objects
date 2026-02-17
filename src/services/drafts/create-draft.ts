@@ -1,18 +1,15 @@
 import { supabase } from "../../lib/supabase";
 import type { Result } from "../../types/result";
 
-type CreatDraftResponse = Result<{ id: string } | null>;
+type CreatDraftResponse = Result<{ id: number } | null>;
 
 export async function createDraft(): CreatDraftResponse {
   try {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-    if (userError || !user) throw new Error("Unauthorized.");
+    const { data: auth, error: userError } = await supabase.auth.getUser();
+    if (userError || !auth) throw new Error("Unauthorized.");
 
     const { data, error } = await supabase
-      .from("stories")
+      .from("drafts")
       .insert([{}])
       .select("id")
       .single();

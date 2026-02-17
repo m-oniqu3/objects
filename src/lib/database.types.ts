@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      drafts: {
+        Row: {
+          author_id: string
+          body: string | null
+          created_at: string
+          id: number
+          prompt_id: number | null
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string
+          body?: string | null
+          created_at?: string
+          id?: number
+          prompt_id?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          created_at?: string
+          id?: number
+          prompt_id?: number | null
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drafts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "drafts_prompt_id_fkey"
+            columns: ["prompt_id"]
+            isOneToOne: false
+            referencedRelation: "prompts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       genres: {
         Row: {
           id: number
@@ -96,12 +144,10 @@ export type Database = {
           author_id: string
           body: string
           created_at: string
-          id: string
+          id: number
           prompt_id: number | null
-          published_at: string | null
           slug: string
           snippet: string | null
-          status: Database["public"]["Enums"]["story_status"]
           subtitle: string | null
           title: string
           updated_at: string
@@ -110,12 +156,10 @@ export type Database = {
           author_id?: string
           body?: string
           created_at?: string
-          id?: string
+          id?: number
           prompt_id?: number | null
-          published_at?: string | null
           slug?: string
           snippet?: string | null
-          status?: Database["public"]["Enums"]["story_status"]
           subtitle?: string | null
           title?: string
           updated_at?: string
@@ -124,12 +168,10 @@ export type Database = {
           author_id?: string
           body?: string
           created_at?: string
-          id?: string
+          id?: number
           prompt_id?: number | null
-          published_at?: string | null
           slug?: string
           snippet?: string | null
-          status?: Database["public"]["Enums"]["story_status"]
           subtitle?: string | null
           title?: string
           updated_at?: string
@@ -154,15 +196,15 @@ export type Database = {
       stories_genres: {
         Row: {
           genre_id: number
-          story_id: string
+          story_id: number
         }
         Insert: {
           genre_id: number
-          story_id: string
+          story_id: number
         }
         Update: {
           genre_id?: number
-          story_id?: string
+          story_id?: number
         }
         Relationships: [
           {
@@ -177,6 +219,38 @@ export type Database = {
             columns: ["story_id"]
             isOneToOne: false
             referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stories_quotes: {
+        Row: {
+          content: string
+          created_at: string
+          id: number
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: number
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: number
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_quotes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]

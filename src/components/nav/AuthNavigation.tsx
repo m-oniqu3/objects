@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { MenuIcon } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/auth/useAuth";
-import { useModal } from "../../contexts/modal/useModal";
-import { createDraft } from "../../services/stories/create-draft";
-import { ModalTypes } from "../../types/modal";
+import { useModalContext } from "../../contexts/modal/useModal";
+import { createDraft } from "../../services/drafts/create-draft";
+import Button from "../Button";
 import Logo from "../Logo";
 
 function AuthNavigation() {
   const navigate = useNavigate();
 
-  const { openModal } = useModal();
+  const { openModal } = useModalContext();
   const { user } = useAuthContext();
   const [isCreatingDraft, setIsCreatingDraft] = useState(false);
 
@@ -24,10 +24,10 @@ function AuthNavigation() {
   });
 
   function handleModal() {
-    openModal(ModalTypes.CREATE_PROMPT_MODAL);
+    openModal({ type: "create_prompt" });
   }
 
-  async function handleNewStory() {
+  async function handleCreateDraft() {
     try {
       setIsCreatingDraft(true);
       if (!user) return;
@@ -38,7 +38,7 @@ function AuthNavigation() {
 
       if (!data) return;
 
-      navigate(`/s/${data.id}/edit`);
+      navigate(`/edit/${data.id}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -47,7 +47,7 @@ function AuthNavigation() {
   }
 
   return (
-    <nav className="grid place-items-center h-20 bg-white  top-0 left-0 w-full">
+    <nav className="grid place-items-center h-full bg-white  top-0 left-0 w-full">
       <div className="wrapper flex items-center justify-center">
         <div className="flex items-center justify-between w-full md:hidden">
           <div className="mx-auto">
@@ -59,20 +59,14 @@ function AuthNavigation() {
           </button>
         </div>
 
-        <div className="hidden md:flex justify-between items-center gap-8 w-full max-w-2xl ">
-          <ul className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex justify-between items-center gap-8 w-full ">
+          <ul className="hidden md:flex items-center gap-4">
+            <Logo />
+
             {rendered_links}
           </ul>
 
-          <Logo />
-
-          <div className="flex justify-evenly items-center gap-6">
-            <button
-              onClick={handleModal}
-              className="text-sm capitalize tracking-wide cursor-pointer"
-            >
-              explore
-            </button>
+          <div className="flex  items-center gap-4">
             <button
               onClick={handleModal}
               className="text-sm capitalize tracking-wide cursor-pointer"
@@ -80,19 +74,19 @@ function AuthNavigation() {
               Create
             </button>
 
-            <button
-              onClick={handleNewStory}
+            <Button
+              onClick={handleCreateDraft}
               disabled={isCreatingDraft}
-              className="text-sm capitalize tracking-wide cursor-pointer"
+              className=" capitalize tracking-wide text-white bg-neutral-700"
             >
-              Write
-            </button>
+              {!isCreatingDraft ? "Write" : "Creating..."}
+            </Button>
 
             <figure>
               <img
                 src="https://i.pinimg.com/736x/57/47/0e/57470e092368f03796bb0d34f2527478.jpg"
                 alt={"Avatar"}
-                className="object-cover size-8 rounded-full"
+                className="object-cover size-9.5 rounded-full"
               />
             </figure>
           </div>
