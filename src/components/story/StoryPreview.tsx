@@ -20,7 +20,7 @@ function StoryPreview(props: Props) {
       subtitle,
       snippet,
       slug,
-      published_at,
+      updated_at,
       author,
       author: { fullname, avatar_url },
       prompt,
@@ -29,7 +29,7 @@ function StoryPreview(props: Props) {
 
   const { openModal } = useModalContext();
 
-  const story_link = `/s/${slug}/${id}`;
+  const story_link = `/s/${slug}-${id}`;
 
   const avatar =
     avatar_url ?? `https://ui-avatars.com/api/?name=${fullname}?rounded=true`;
@@ -42,7 +42,7 @@ function StoryPreview(props: Props) {
       title,
       subtitle,
       snippet,
-      published_at,
+      updated_at,
       author,
       prompt,
     };
@@ -86,7 +86,7 @@ function StoryPreview(props: Props) {
             <span>{fullname}</span>
             &bull;
             <span className="lowercase text-neutral-500">
-              {formatDate(published_at)}
+              {formatDate(updated_at)}
             </span>
           </p>
         </div>
@@ -101,17 +101,15 @@ function StoryPreview(props: Props) {
           <h1 className="text-lg font-medium">{title}</h1>
 
           {subtitle && (
-            <p className="text-sm capitalize leading-8 tracking-wider text-neutral-600 ">
+            <p className="text-sm font-medium capitalize leading-5 tracking-wide text-neutral-600 ">
               {subtitle}
             </p>
           )}
         </div>
 
-        <p className=" text-sm leading-8 tracking-wider text-neutral-800">
-          {snippet}
-        </p>
+        <p className=" text-sm  tracking-wide text-neutral-800">{snippet}</p>
 
-        <p className="text-sm pt-1 capitalize leading-4 tracking-wider text-neutral-600">
+        <p className="text-sm pt-1 capitalize leading-4 tracking-wide text-neutral-600">
           {["Fiction", "Young Adult", "Romance"].join(", ")}.
         </p>
 

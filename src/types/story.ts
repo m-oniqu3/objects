@@ -23,7 +23,7 @@ export type StoryRepostPreview = {
   title: string;
   subtitle: string | null;
   snippet: string;
-  published_at: string;
+  updated_at: string;
   author: AuthorPreview;
   prompt: Prompt | null;
 };
@@ -60,6 +60,17 @@ export type StoryPreview = {
   subtitle: string | null;
   slug: string;
   snippet: string;
+  genres: Array<Genre> | null;
+  author: AuthorPreview;
+  prompt: Prompt | null;
+  updated_at: string;
+};
+
+export type Story = {
+  id: number;
+  title: string;
+  subtitle: string | null;
+  body: string;
   genres: Array<Genre> | null;
   author: AuthorPreview;
   prompt: Prompt | null;

@@ -196,15 +196,15 @@ export type Database = {
       stories_genres: {
         Row: {
           genre_id: number
-          story_id: string
+          story_id: number
         }
         Insert: {
           genre_id: number
-          story_id: string
+          story_id: number
         }
         Update: {
           genre_id?: number
-          story_id?: string
+          story_id?: number
         }
         Relationships: [
           {
@@ -212,6 +212,13 @@ export type Database = {
             columns: ["genre_id"]
             isOneToOne: false
             referencedRelation: "genres"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stories_genres_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
             referencedColumns: ["id"]
           },
         ]

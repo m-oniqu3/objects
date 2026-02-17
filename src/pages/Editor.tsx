@@ -84,9 +84,7 @@ function Editor() {
   //   });
   // }
 
-  // Check hasChanged on every input
   function checkHasChanged() {
-    console.log("checking");
     const current = {
       title: titleRef.current?.textContent?.trim() || "",
       subtitle: subtitleRef.current?.textContent?.trim() || "",
@@ -100,8 +98,19 @@ function Editor() {
     };
 
     setHasChanged(JSON.stringify(current) !== JSON.stringify(original));
-    setIsDraftPublishable(!!current.title.trim() && !!current.body.trim());
+    setIsDraftPublishable(!!current.title && !!current.body);
   }
+
+  // Debounce in useEffect
+  const [inputTrigger, setInputTrigger] = useState(0);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      checkHasChanged();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [inputTrigger]);
 
   console.log({ hasChanged });
 
@@ -161,7 +170,7 @@ function Editor() {
 
   if (isLoading) {
     return (
-      <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+      <div className="absolute-center">
         <LoadingIcon className="size-6 animate-spin" />
       </div>
     );
@@ -194,7 +203,7 @@ function Editor() {
             <EditorTitle
               titleRef={titleRef}
               subtitleRef={subtitleRef}
-              checkHasChanged={checkHasChanged}
+              checkHasChanged={() => setInputTrigger((prev) => prev + 1)}
             />
           </div>
 

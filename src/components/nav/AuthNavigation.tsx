@@ -59,7 +59,7 @@ function AuthNavigation() {
           </button>
         </div>
 
-        <div className="hidden md:flex justify-between items-center gap-8 w-full max-w-2xl ">
+        <div className="hidden md:flex justify-between items-center gap-8 w-full ">
           <ul className="hidden md:flex items-center gap-4">
             <Logo />
 
@@ -77,7 +77,7 @@ function AuthNavigation() {
             <Button
               onClick={handleCreateDraft}
               disabled={isCreatingDraft}
-              className=" capitalize tracking-wider text-white bg-yellow-700"
+              className=" capitalize tracking-wide text-white bg-neutral-700"
             >
               {!isCreatingDraft ? "Write" : "Creating..."}
             </Button>
@@ -86,7 +86,7 @@ function AuthNavigation() {
               <img
                 src="https://i.pinimg.com/736x/57/47/0e/57470e092368f03796bb0d34f2527478.jpg"
                 alt={"Avatar"}
-                className="object-cover size-8 rounded-full"
+                className="object-cover size-9.5 rounded-full"
               />
             </figure>
           </div>

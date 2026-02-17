@@ -18,11 +18,11 @@ async function storyPreviewsFetcher(key: [string, number]) {
 }
 
 function getKey(page: number, previousPageData: Array<SPreview> | null) {
-  if (page === 0) return ["published_stories", page];
+  if (page === 0) return ["stories", page];
   if (previousPageData && previousPageData.length === 0) return null;
   if (previousPageData && previousPageData.length < limit) return null;
 
-  return ["published_stories", page];
+  return ["stories", page];
 }
 
 function Stories() {

@@ -1,10 +1,10 @@
 import { supabase } from "../../lib/supabase";
 import type { Result } from "../../types/result";
-import type { PublishedStory } from "../../types/story";
+import type { Story } from "../../types/story";
 
-type GetStoryResponse = Result<PublishedStory | null>;
+type GetStoryResponse = Result<Story | null>;
 
-async function getPublishedStory(id: string): GetStoryResponse {
+async function getStory(story_id: number): GetStoryResponse {
   try {
     const { data, error } = await supabase
       .from("stories")
@@ -13,17 +13,16 @@ async function getPublishedStory(id: string): GetStoryResponse {
       id,
       title,
       subtitle,
-      slug,
       body,
-      published_at,
+     updated_at,
       stories_genres (
         genres (id, name)
       ),
       author:profiles(id, fullname, avatar_url),
       prompt:prompts(id, title)`,
       )
-      .eq("id", id)
-      .eq("status", "published")
+      .eq("id", story_id)
+
       .single();
 
     if (error) {
@@ -34,13 +33,7 @@ async function getPublishedStory(id: string): GetStoryResponse {
 
     const genres = data.stories_genres?.map((sg) => sg.genres);
 
-    const story = {
-      ...data,
-      published_at: data.published_at!,
-      genres,
-    };
-
-    return { data: story, error: null };
+    return { data: { ...data, genres }, error: null };
   } catch (error) {
     console.error("Failed to fetch story:", error);
 
@@ -54,4 +47,4 @@ async function getPublishedStory(id: string): GetStoryResponse {
   }
 }
 
-export default getPublishedStory;
+export default getStory;
