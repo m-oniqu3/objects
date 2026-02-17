@@ -35,7 +35,7 @@ createRoot(root).render(
                 <Route path="/p/:id" element={<Prompt />} />
               </Route>
 
-              <Route path="/draft/:id" element={<Editor />} />
+              <Route path="/edit/:id" element={<Editor />} />
 
               <Route path="/sign_in" element={<SignIn />} />
               <Route path="/sign_up" element={<SignUp />} />

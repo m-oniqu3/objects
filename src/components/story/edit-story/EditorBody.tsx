@@ -1,9 +1,11 @@
+import type { RefObject } from "react";
 type Props = {
-  setBody: (content: string) => void;
+  bodyRef: RefObject<HTMLDivElement | null>;
+  checkHasChanged(): void;
 };
 
 function EditorBody(props: Props) {
-  const { setBody } = props;
+  const { bodyRef, checkHasChanged } = props;
 
   function handlePaste(e: React.ClipboardEvent) {
     e.preventDefault();
@@ -12,15 +14,16 @@ function EditorBody(props: Props) {
     document.execCommand("insertText", false, text);
   }
 
-  function handleBodyChange(value: string) {
-    setBody(value);
-  }
+  // function handleBodyChange(value: string) {
+  //   setBody(value);
+  // }
 
   return (
     <div
+      ref={bodyRef}
       contentEditable
       onPaste={handlePaste}
-      onInput={(e) => handleBodyChange(e.currentTarget.innerHTML)}
+      onInput={checkHasChanged}
       data-placeholder="Write something interesting..."
       className="text-lg leading-relaxed outline-none"
       suppressContentEditableWarning

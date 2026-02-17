@@ -22,7 +22,7 @@ function Story() {
   const { data, error, isLoading } = useSWR(
     "get-published-story-" + storyID,
     () => getStoryFetcher(storyID),
-    { suspense: true },
+    // { suspense: true },
   );
 
   if (isLoading) {

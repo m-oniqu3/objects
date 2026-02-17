@@ -144,12 +144,10 @@ export type Database = {
           author_id: string
           body: string
           created_at: string
-          id: string
+          id: number
           prompt_id: number | null
-          published_at: string | null
           slug: string
           snippet: string | null
-          status: Database["public"]["Enums"]["story_status"]
           subtitle: string | null
           title: string
           updated_at: string
@@ -158,12 +156,10 @@ export type Database = {
           author_id?: string
           body?: string
           created_at?: string
-          id?: string
+          id?: number
           prompt_id?: number | null
-          published_at?: string | null
           slug?: string
           snippet?: string | null
-          status?: Database["public"]["Enums"]["story_status"]
           subtitle?: string | null
           title?: string
           updated_at?: string
@@ -172,12 +168,10 @@ export type Database = {
           author_id?: string
           body?: string
           created_at?: string
-          id?: string
+          id?: number
           prompt_id?: number | null
-          published_at?: string | null
           slug?: string
           snippet?: string | null
-          status?: Database["public"]["Enums"]["story_status"]
           subtitle?: string | null
           title?: string
           updated_at?: string
@@ -220,13 +214,6 @@ export type Database = {
             referencedRelation: "genres"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "stories_genres_story_id_fkey"
-            columns: ["story_id"]
-            isOneToOne: false
-            referencedRelation: "stories"
-            referencedColumns: ["id"]
-          },
         ]
       }
       stories_quotes: {
@@ -252,13 +239,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "story_quotes_story_id_fkey"
-            columns: ["story_id"]
-            isOneToOne: false
-            referencedRelation: "stories"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "story_quotes_user_id_fkey"
             columns: ["user_id"]

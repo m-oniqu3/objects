@@ -1,25 +1,15 @@
 import { supabase } from "../../lib/supabase";
 import type { Result } from "../../types/result";
-import type { Story } from "../../types/story";
+import type { StorySubmission } from "../../types/story";
 
 type Props = {
-  story: Story;
+  story: StorySubmission;
 };
 
-type SaveStoryResponse = Result<{ id: string; slug: string } | null>;
+type SaveStoryResponse = Result<{ id: number; slug: string } | null>;
 
 async function saveStory(props: Props): SaveStoryResponse {
-  const {
-    title,
-    slug,
-    subtitle,
-    body,
-    id,
-    prompt_id,
-    snippet,
-    status,
-    published_at = null,
-  } = props.story;
+  const { story } = props;
 
   try {
     const { data: auth, error: authError } = await supabase.auth.getUser();
@@ -29,35 +19,34 @@ async function saveStory(props: Props): SaveStoryResponse {
       return { data: null, error: null };
     }
 
-    const { data, error } = await supabase
+    const { data: storyData, error: storyErr } = await supabase
       .from("stories")
-      .update({
-        title,
-        subtitle,
-        slug,
-        snippet,
-        status,
-        body,
-        prompt_id,
-        published_at,
-      })
-      .eq("id", id)
+      .insert(story)
+      .eq("id", story.id)
       .eq("author_id", auth.user.id)
       .select("id, slug")
       .single();
 
-    if (error) throw error;
+    if (storyErr) throw storyErr;
 
-    if (!data) {
+    if (!storyData) {
       return { data: null, error: null };
     }
 
-    return { data, error: null };
+    const { error } = await supabase
+      .from("drafts")
+      .delete()
+      .eq("id", story.id)
+      .eq("author_id", auth.user.id);
+
+    if (error) throw error;
+
+    return { data: storyData, error: null };
   } catch (error) {
     console.log(error);
     return {
       data: null,
-      error: error instanceof Error ? error.message : "Failed to save draft.",
+      error: error instanceof Error ? error.message : "Failed to save story.",
     };
   }
 }

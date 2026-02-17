@@ -38,7 +38,7 @@ function AuthNavigation() {
 
       if (!data) return;
 
-      navigate(`/draft/${data.id}`);
+      navigate(`/edit/${data.id}`);
     } catch (error) {
       console.log(error);
     } finally {
