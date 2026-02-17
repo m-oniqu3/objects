@@ -10,13 +10,17 @@ a place for short reads — and writing them.
 - view published stories
 - create and view prompts 
 - see all the stories written in response to a prompt
+- quote a story
+- view drafts within the editor
 
 
 ## what's next?
-- resposting a story
+- reposting a story
+- liking a story
+- commenting on a story
 - formatting the story properly (read-only version)
 - adding genres to a story
-- populating the editor with the draft on mount
+
 - protect routes
 
 
