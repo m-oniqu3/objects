@@ -45,8 +45,7 @@ function QuoteStory() {
       title,
       subtitle,
       snippet,
-      published_at,
-
+      updated_at,
       author: { fullname, avatar_url },
       prompt,
     } = story;
@@ -69,7 +68,7 @@ function QuoteStory() {
             <span className="font-medium">{fullname}</span>
             &bull;
             <span className="lowercase text-neutral-500">
-              {formatDate(published_at)}
+              {formatDate(updated_at)}
             </span>
           </p>
         </div>

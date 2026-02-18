@@ -29,7 +29,7 @@ createRoot(root).render(
               <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/stories" element={<Stories />} />
-                <Route path="/s/:slug" element={<Story />} />
+                <Route path="/s/:slugandID" element={<Story />} />
 
                 <Route path="/prompts" element={<Prompts />} />
                 <Route path="/p/:id" element={<Prompt />} />

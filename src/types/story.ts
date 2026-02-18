@@ -1,6 +1,6 @@
 import type { Prompt, PromptOverview } from "./prompt";
 
-export type AuthorPreview = {
+export type Author = {
   id: string;
   fullname: string;
   avatar_url: string | null;
@@ -24,7 +24,7 @@ export type StoryRepostPreview = {
   subtitle: string | null;
   snippet: string;
   updated_at: string;
-  author: AuthorPreview;
+  author: Author;
   prompt: Prompt | null;
 };
 
@@ -39,7 +39,9 @@ export type DraftSubmission = {
 export type StorySubmission = {
   id: number;
   title: string;
+  slug: string;
   subtitle: string | null;
+  snippet: string;
   body: string;
   prompt_id: number | null;
 };
@@ -61,7 +63,7 @@ export type StoryPreview = {
   slug: string;
   snippet: string;
   genres: Array<Genre> | null;
-  author: AuthorPreview;
+  author: Author;
   prompt: Prompt | null;
   updated_at: string;
 };
@@ -72,7 +74,14 @@ export type Story = {
   subtitle: string | null;
   body: string;
   genres: Array<Genre> | null;
-  author: AuthorPreview;
+  author: Author;
   prompt: Prompt | null;
   updated_at: string;
+};
+
+export type StoryComment = {
+  id: number;
+  content: string;
+  created_at: string;
+  author: Author;
 };

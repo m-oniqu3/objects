@@ -4,7 +4,7 @@ import type { Result } from "../../types/result";
 type Response = Result<{ id: number } | null>;
 
 type Props = {
-  story_id: string;
+  story_id: number;
   user_id: string;
   content: string;
 };

@@ -12,6 +12,8 @@ import { getDraft } from "../services/drafts/get-draft";
 import saveDraft from "../services/drafts/save-draft";
 import saveStory from "../services/stories/save-story";
 import type { DraftSubmission, StorySubmission } from "../types/story";
+import { slugify } from "../utils/slug";
+import { createSnippet } from "../utils/story/create-story-snippet";
 
 async function getStoryFetcher(story_id: number) {
   if (!story_id) return null;
@@ -120,7 +122,7 @@ function Editor() {
     const content = {
       title: titleRef.current?.textContent || "",
       subtitle: subtitleRef.current?.textContent || "",
-      body: bodyRef.current?.textContent || "",
+      body: bodyRef.current?.innerHTML || "",
     };
 
     const draft: DraftSubmission = {
@@ -148,12 +150,16 @@ function Editor() {
     const content = {
       title: titleRef.current?.textContent || "",
       subtitle: subtitleRef.current?.textContent || "",
-      body: bodyRef.current?.textContent || "",
+      body: bodyRef.current?.innerHTML || "",
     };
+
+    if (!content.title || !content.body) return;
 
     const story: StorySubmission = {
       id: +story_id,
       ...content,
+      slug: slugify(content.title),
+      snippet: createSnippet(content.body),
       prompt_id,
     };
 

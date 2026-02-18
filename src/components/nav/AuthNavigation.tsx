@@ -4,7 +4,6 @@ import { MenuIcon } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/auth/useAuth";
 import { useModalContext } from "../../contexts/modal/useModal";
 import { createDraft } from "../../services/drafts/create-draft";
-import Button from "../Button";
 import Logo from "../Logo";
 
 function AuthNavigation() {
@@ -28,6 +27,7 @@ function AuthNavigation() {
   }
 
   async function handleCreateDraft() {
+    console.log("creating draft", user?.id);
     try {
       setIsCreatingDraft(true);
       if (!user) return;
@@ -74,19 +74,19 @@ function AuthNavigation() {
               Create
             </button>
 
-            <Button
+            <button
               onClick={handleCreateDraft}
               disabled={isCreatingDraft}
-              className=" capitalize tracking-wide text-white bg-neutral-700"
+              className=" text-sm capitalize tracking-wide cursor-pointer"
             >
               {!isCreatingDraft ? "Write" : "Creating..."}
-            </Button>
+            </button>
 
             <figure>
               <img
                 src="https://i.pinimg.com/736x/57/47/0e/57470e092368f03796bb0d34f2527478.jpg"
                 alt={"Avatar"}
-                className="object-cover size-9.5 rounded-full"
+                className="object-cover size-8 rounded-full"
               />
             </figure>
           </div>

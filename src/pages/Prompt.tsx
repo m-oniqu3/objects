@@ -14,9 +14,6 @@ async function promptStoriesFetcher([, prompt_id, page]: [
   number,
   number,
 ]) {
-  if (!prompt_id) throw new Error("No prompt ID");
-  // const page = key[1];
-
   const { data, error } = await getPromptStories({ page, limit, prompt_id });
 
   if (error) throw error;

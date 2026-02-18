@@ -101,13 +101,13 @@ function StoryPreview(props: Props) {
           <h1 className="text-lg font-medium">{title}</h1>
 
           {subtitle && (
-            <p className="text-sm font-medium capitalize leading-5 tracking-wide text-neutral-600 ">
+            <p className="text-sm  capitalize leading-5 tracking-wider">
               {subtitle}
             </p>
           )}
         </div>
 
-        <p className=" text-sm  tracking-wide text-neutral-800">{snippet}</p>
+        <p className=" text text-neutral-800">{snippet}</p>
 
         <p className="text-sm pt-1 capitalize leading-4 tracking-wide text-neutral-600">
           {["Fiction", "Young Adult", "Romance"].join(", ")}.

@@ -2,7 +2,6 @@
 
 
 [contenteditable][data-placeholder]:empty::before {
-
     content: attr(data-placeholder);
     color: #b3b3b1;
     pointer-events: none;
@@ -16,8 +15,7 @@
     }
 
     html {
-        font-family: "Geist", sans-serif;
-        /* font-family: "Noto Serif", serif; */
+        font-family: "Google Sans", sans-serif;
         font-weight: 400;
         font-style: normal;
     }

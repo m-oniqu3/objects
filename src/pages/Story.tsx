@@ -1,7 +1,10 @@
 import { useLocation } from "react-router";
 import useSWR from "swr";
 import { LoadingIcon } from "../assets/icons";
-import StoryContents from "../components/story/StoryContents";
+import StoryComments from "../components/story/comments/StoryComments";
+import StoryContents from "../components/story/contents/StoryContents";
+import StoryStats from "../components/story/contents/StoryStats";
+import StorySeparator from "../components/story/StorySeparator";
 import getStory from "../services/stories/get-story";
 
 async function getStoryFetcher(storyID: number) {
@@ -40,8 +43,14 @@ function Story() {
   }
 
   return (
-    <section>
+    <section className="flex flex-col gap-12 max-w-2xl mx-auto">
       <StoryContents story={data} />
+      <StorySeparator />
+
+      <StoryStats />
+
+      <StorySeparator />
+      <StoryComments storyID={data.id} />
     </section>
   );
 }

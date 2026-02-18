@@ -21,9 +21,9 @@ function Metric(props: Props) {
       className=" flex items-center gap-2 text-neutral-500 cursor-pointer"
       onClick={handleClick}
     >
-      <Icon className="size-4.5" />
+      <Icon className="size-5" />
 
-      <span className="text-sm">{value}</span>
+      <span className="text-sm text">{value}</span>
     </button>
   );
 }

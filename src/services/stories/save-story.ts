@@ -21,7 +21,7 @@ async function saveStory(props: Props): SaveStoryResponse {
 
     const { data: storyData, error: storyErr } = await supabase
       .from("stories")
-      .insert(story)
+      .upsert(story)
       .eq("id", story.id)
       .eq("author_id", auth.user.id)
       .select("id, slug")
